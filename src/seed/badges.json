@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "code": "first_event",
+    "name": "Перший захід",
+    "description": "Участь у першому тімбілдинговому заході.",
+    "icon": "🎯"
+  },
+  {
+    "id": 2,
+    "code": "quiz_master",
+    "name": "Майстер квізів",
+    "description": "100+ балів у квіз-активності.",
+    "icon": "🧠"
+  },
+  {
+    "id": 3,
+    "code": "team_player",
+    "name": "Командний гравець",
+    "description": "Активна участь у командному scavenger hunt.",
+    "icon": "🤝"
+  },
+  {
+    "id": 4,
+    "code": "host_star",
+    "name": "Зірка ведучого",
+    "description": "Проведено успішний захід з NPS 9+.",
+    "icon": "⭐"
+  },
+  {
+    "id": 5,
+    "code": "icebreaker_pro",
+    "name": "Icebreaker Pro",
+    "description": "5+ icebreaker-активностей.",
+    "icon": "❄️"
+  },
+  {
+    "id": 6,
+    "code": "scavenger_hunter",
+    "name": "Мисливець",
+    "description": "10+ фото у scavenger hunt.",
+    "icon": "📸"
+  },
+  {
+    "id": 7,
+    "code": "early_bird",
+    "name": "Ранній пташка",
+    "description": "Перший приєднався до заходу.",
+    "icon": "🐦"
+  },
+  {
+    "id": 8,
+    "code": "feedback_hero",
+    "name": "Голос команди",
+    "description": "Залишив детальний відгук.",
+    "icon": "💬"
+  },
+  {
+    "id": 9,
+    "code": "streak_3",
+    "name": "Серія ×3",
+    "description": "3 заходи поспіль.",
+    "icon": "🔥"
+  },
+  {
+    "id": 10,
+    "code": "top_scorer",
+    "name": "Лідер таблиці",
+    "description": "Перше місце в лідерборді.",
+    "icon": "🏆"
+  },
+  {
+    "id": 11,
+    "code": "creative_mind",
+    "name": "Креатив",
+    "description": "Перемога у creative challenge.",
+    "icon": "🎨"
+  },
+  {
+    "id": 12,
+    "code": "wellness_warrior",
+    "name": "Wellness",
+    "description": "Участь у wellness-заході.",
+    "icon": "🧘"
+  },
+  {
+    "id": 13,
+    "code": "bingo_winner",
+    "name": "Bingo!",
+    "description": "Перший bingo у заході.",
+    "icon": "🎱"
+  },
+  {
+    "id": 14,
+    "code": "mentor",
+    "name": "Наставник",
+    "description": "Допоміг новачкам у onboarding.",
+    "icon": "🎓"
+  },
+  {
+    "id": 15,
+    "code": "veteran",
+    "name": "Ветеран",
+    "description": "10+ завершених заходів.",
+    "icon": "🎖️"
+  }
+]

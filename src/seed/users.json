@@ -1,0 +1,287 @@
+[
+  {
+    "id": 1,
+    "firebase_uid": "tw-admin-001",
+    "email": "admin@teamwave.demo",
+    "name": "Олена Коваленко",
+    "avatar_url": "https://i.pravatar.cc/150?img=1",
+    "role": "admin",
+    "bio": "Адміністратор платформи TeamWave.",
+    "company": "TeamWave",
+    "position": "Platform Admin",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "facilitation",
+      "product",
+      "analytics"
+    ],
+    "points": 1200,
+    "level": 5
+  },
+  {
+    "id": 2,
+    "firebase_uid": "tw-org-001",
+    "email": "organizer@teamwave.demo",
+    "name": "Андрій Мельник",
+    "avatar_url": "https://i.pravatar.cc/150?img=2",
+    "role": "organizer",
+    "bio": "Організую корпоративні тімбілдинги для IT-команд.",
+    "company": "NovaTech",
+    "position": "HR Business Partner",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "team building",
+      "leadership",
+      "games"
+    ],
+    "points": 860,
+    "level": 4
+  },
+  {
+    "id": 3,
+    "firebase_uid": "tw-host-001",
+    "email": "host@teamwave.demo",
+    "name": "Марія Шевченко",
+    "avatar_url": "https://i.pravatar.cc/150?img=3",
+    "role": "host",
+    "bio": "Ведуча інтерактивних заходів і квізів.",
+    "company": "NovaTech",
+    "position": "Event Host",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "quizzes",
+      "icebreakers",
+      "public speaking"
+    ],
+    "points": 640,
+    "level": 3
+  },
+  {
+    "id": 4,
+    "firebase_uid": "tw-user-001",
+    "email": "dmytro@teamwave.demo",
+    "name": "Дмитро Бондар",
+    "avatar_url": "https://i.pravatar.cc/150?img=4",
+    "role": "participant",
+    "bio": "Backend developer, люблю квізи та scavenger hunt.",
+    "company": "NovaTech",
+    "position": "Backend Developer",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "coding",
+      "board games",
+      "coffee"
+    ],
+    "points": 420,
+    "level": 2
+  },
+  {
+    "id": 5,
+    "firebase_uid": "tw-user-002",
+    "email": "kateryna@teamwave.demo",
+    "name": "Катерина Лисенко",
+    "avatar_url": "https://i.pravatar.cc/150?img=5",
+    "role": "participant",
+    "bio": "UX designer, ціную креативні активності.",
+    "company": "NovaTech",
+    "position": "UX Designer",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "design",
+      "photography",
+      "travel"
+    ],
+    "points": 510,
+    "level": 3
+  },
+  {
+    "id": 6,
+    "firebase_uid": "tw-user-003",
+    "email": "ivan@teamwave.demo",
+    "name": "Іван Петренко",
+    "avatar_url": "https://i.pravatar.cc/150?img=6",
+    "role": "participant",
+    "bio": "QA engineer, люблю командні змагання.",
+    "company": "NovaTech",
+    "position": "QA Engineer",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "testing",
+      "football",
+      "music"
+    ],
+    "points": 380,
+    "level": 2
+  },
+  {
+    "id": 7,
+    "firebase_uid": "tw-user-004",
+    "email": "sofia@teamwave.demo",
+    "name": "Софія Гриценко",
+    "avatar_url": "https://i.pravatar.cc/150?img=7",
+    "role": "participant",
+    "bio": "Project manager, фанатка icebreaker-активностей.",
+    "company": "NovaTech",
+    "position": "Project Manager",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "planning",
+      "books",
+      "yoga"
+    ],
+    "points": 455,
+    "level": 2
+  },
+  {
+    "id": 8,
+    "firebase_uid": "tw-user-005",
+    "email": "taras@teamwave.demo",
+    "name": "Тарас Сидоренко",
+    "avatar_url": "https://i.pravatar.cc/150?img=8",
+    "role": "participant",
+    "bio": "DevOps engineer, люблю швидкі ігри.",
+    "company": "NovaTech",
+    "position": "DevOps Engineer",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "automation",
+      "hiking",
+      "chess"
+    ],
+    "points": 395,
+    "level": 2
+  },
+  {
+    "id": 9,
+    "firebase_uid": "tw-user-006",
+    "email": "natalia@teamwave.demo",
+    "name": "Наталія Біла",
+    "avatar_url": "https://i.pravatar.cc/150?img=9",
+    "role": "participant",
+    "bio": "Frontend developer, люблю typing race.",
+    "company": "CloudBridge",
+    "position": "Frontend Developer",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "react",
+      "running",
+      "podcasts"
+    ],
+    "points": 340,
+    "level": 2
+  },
+  {
+    "id": 10,
+    "firebase_uid": "tw-host-002",
+    "email": "yuriy@teamwave.demo",
+    "name": "Юрій Кравченко",
+    "avatar_url": "https://i.pravatar.cc/150?img=10",
+    "role": "host",
+    "bio": "Фасилітатор wellness та creative форматів.",
+    "company": "CloudBridge",
+    "position": "Culture Lead",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "wellness",
+      "art",
+      "facilitation"
+    ],
+    "points": 720,
+    "level": 4
+  },
+  {
+    "id": 11,
+    "firebase_uid": "tw-org-002",
+    "email": "viktoria@teamwave.demo",
+    "name": "Вікторія Мороз",
+    "avatar_url": "https://i.pravatar.cc/150?img=11",
+    "role": "organizer",
+    "bio": "Організує заходи для distributed-команд.",
+    "company": "DataPulse",
+    "position": "People Ops Manager",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "analytics",
+      "events",
+      "coaching"
+    ],
+    "points": 790,
+    "level": 4
+  },
+  {
+    "id": 12,
+    "firebase_uid": "tw-user-007",
+    "email": "bogdan@teamwave.demo",
+    "name": "Богдан Романюк",
+    "avatar_url": "https://i.pravatar.cc/150?img=12",
+    "role": "participant",
+    "bio": "Data analyst, цінує quiz-формати.",
+    "company": "DataPulse",
+    "position": "Data Analyst",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "sql",
+      "chess",
+      "cinema"
+    ],
+    "points": 410,
+    "level": 2
+  },
+  {
+    "id": 13,
+    "firebase_uid": "tw-user-008",
+    "email": "yana@teamwave.demo",
+    "name": "Яна Кузнецова",
+    "avatar_url": "https://i.pravatar.cc/150?img=13",
+    "role": "participant",
+    "bio": "Marketing specialist, любить creative challenges.",
+    "company": "DataPulse",
+    "position": "Marketing Specialist",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "branding",
+      "yoga",
+      "travel"
+    ],
+    "points": 365,
+    "level": 2
+  },
+  {
+    "id": 14,
+    "firebase_uid": "tw-user-009",
+    "email": "maxim@teamwave.demo",
+    "name": "Максим Гончар",
+    "avatar_url": "https://i.pravatar.cc/150?img=14",
+    "role": "participant",
+    "bio": "Mobile developer, активний у scavenger hunt.",
+    "company": "PixelForge",
+    "position": "Mobile Developer",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "flutter",
+      "cycling",
+      "coffee"
+    ],
+    "points": 430,
+    "level": 2
+  },
+  {
+    "id": 15,
+    "firebase_uid": "tw-user-010",
+    "email": "lilia@teamwave.demo",
+    "name": "Лілія Ткаченко",
+    "avatar_url": "https://i.pravatar.cc/150?img=15",
+    "role": "participant",
+    "bio": "Support lead, любить bingo та poll.",
+    "company": "PixelForge",
+    "position": "Support Lead",
+    "timezone": "Europe/Kyiv",
+    "interests": [
+      "helpdesk",
+      "reading",
+      "baking"
+    ],
+    "points": 290,
+    "level": 1
+  }
+]

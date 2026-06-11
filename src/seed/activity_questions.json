@@ -1,0 +1,308 @@
+[
+  {
+    "id": 1,
+    "activity_id": 1,
+    "question": "Кава чи чай?",
+    "options": [
+      "Кава",
+      "Чай"
+    ],
+    "correct_answer": null,
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 2,
+    "activity_id": 1,
+    "question": "Море чи гори?",
+    "options": [
+      "Море",
+      "Гори"
+    ],
+    "correct_answer": null,
+    "question_type": "single",
+    "order_index": 2
+  },
+  {
+    "id": 3,
+    "activity_id": 2,
+    "question": "У якому році засновано NovaTech?",
+    "options": [
+      "2018",
+      "2020",
+      "2022",
+      "2024"
+    ],
+    "correct_answer": "2020",
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 4,
+    "activity_id": 2,
+    "question": "Які цінності NovaTech?",
+    "options": [
+      "Відкритість",
+      "Команда",
+      "Швидкість",
+      "Якість"
+    ],
+    "correct_answer": "Відкритість,Команда,Якість",
+    "question_type": "multiple",
+    "order_index": 2
+  },
+  {
+    "id": 5,
+    "activity_id": 3,
+    "question": "Знайди щось червоне",
+    "options": [
+      "photo_upload"
+    ],
+    "correct_answer": null,
+    "question_type": "open",
+    "order_index": 1
+  },
+  {
+    "id": 6,
+    "activity_id": 3,
+    "question": "Знайди улюблену книгу",
+    "options": [
+      "photo_upload"
+    ],
+    "correct_answer": null,
+    "question_type": "open",
+    "order_index": 2
+  },
+  {
+    "id": 7,
+    "activity_id": 4,
+    "question": "Наскільки ти заряджений(-на)?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "correct_answer": null,
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 8,
+    "activity_id": 5,
+    "question": "Кава чи чай?",
+    "options": [
+      "Кава",
+      "Чай"
+    ],
+    "correct_answer": null,
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 9,
+    "activity_id": 6,
+    "question": "Який icebreaker найкращий?",
+    "options": [
+      "This or That",
+      "Fun Facts",
+      "Bingo",
+      "Інше"
+    ],
+    "correct_answer": null,
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 10,
+    "activity_id": 7,
+    "question": "Скільки офісів у NovaTech?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4+"
+    ],
+    "correct_answer": "3",
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 11,
+    "activity_id": 7,
+    "question": "Головний продукт компанії?",
+    "options": [
+      "CRM",
+      "TeamWave",
+      "ERP",
+      "Analytics"
+    ],
+    "correct_answer": "TeamWave",
+    "question_type": "single",
+    "order_index": 2
+  },
+  {
+    "id": 12,
+    "activity_id": 8,
+    "question": "Хто написав «1984»?",
+    "options": [
+      "Оруелл",
+      "Кафка",
+      "Бредбері",
+      "Хемінгуей"
+    ],
+    "correct_answer": "Оруелл",
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 13,
+    "activity_id": 9,
+    "question": "Як твоє самопочуття сьогодні?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "correct_answer": null,
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 14,
+    "activity_id": 10,
+    "question": "Знайди святковий декор",
+    "options": [
+      "photo_upload"
+    ],
+    "correct_answer": null,
+    "question_type": "open",
+    "order_index": 1
+  },
+  {
+    "id": 15,
+    "activity_id": 11,
+    "question": "Котики чи собаки?",
+    "options": [
+      "Котики",
+      "Собаки"
+    ],
+    "correct_answer": null,
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 16,
+    "activity_id": 12,
+    "question": "Столиця України?",
+    "options": [
+      "Київ",
+      "Львів",
+      "Одеса",
+      "Харків"
+    ],
+    "correct_answer": "Київ",
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 17,
+    "activity_id": 13,
+    "question": "Знайди щось жовте",
+    "options": [
+      "photo_upload"
+    ],
+    "correct_answer": null,
+    "question_type": "open",
+    "order_index": 1
+  },
+  {
+    "id": 18,
+    "activity_id": 14,
+    "question": "Найкраще team selfie",
+    "options": [
+      "photo_upload"
+    ],
+    "correct_answer": null,
+    "question_type": "open",
+    "order_index": 1
+  },
+  {
+    "id": 19,
+    "activity_id": 15,
+    "question": "Що таке CI/CD?",
+    "options": [
+      "Continuous Integration/Delivery",
+      "Code Inspect",
+      "Cloud Deploy",
+      "None"
+    ],
+    "correct_answer": "Continuous Integration/Delivery",
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 20,
+    "activity_id": 16,
+    "question": "Найкращий костюм?",
+    "options": [
+      "Вампір",
+      "Відьма",
+      "Супергерой",
+      "Інше"
+    ],
+    "correct_answer": null,
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 21,
+    "activity_id": 17,
+    "question": "Ранок чи вечір?",
+    "options": [
+      "Ранок",
+      "Вечір"
+    ],
+    "correct_answer": null,
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 22,
+    "activity_id": 18,
+    "question": "Знайди welcome-лист",
+    "options": [
+      "photo_upload"
+    ],
+    "correct_answer": null,
+    "question_type": "open",
+    "order_index": 1
+  },
+  {
+    "id": 23,
+    "activity_id": 19,
+    "question": "Готовність до спринту?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "correct_answer": null,
+    "question_type": "single",
+    "order_index": 1
+  },
+  {
+    "id": 24,
+    "activity_id": 20,
+    "question": "Що покращити в комунікації?",
+    "options": null,
+    "correct_answer": null,
+    "question_type": "open",
+    "order_index": 1
+  }
+]

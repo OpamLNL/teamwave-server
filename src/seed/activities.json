@@ -1,0 +1,262 @@
+[
+  {
+    "id": 1,
+    "event_id": 1,
+    "title": "Warm-up: This or That",
+    "type": "this_or_that",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": null,
+    "ended_at": null
+  },
+  {
+    "id": 2,
+    "event_id": 1,
+    "title": "Team Quiz",
+    "type": "quiz",
+    "settings": {
+      "timer_seconds": 45
+    },
+    "order_index": 2,
+    "is_active": false,
+    "started_at": null,
+    "ended_at": null
+  },
+  {
+    "id": 3,
+    "event_id": 1,
+    "title": "Photo Scavenger Hunt",
+    "type": "scavenger",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 3,
+    "is_active": false,
+    "started_at": null,
+    "ended_at": null
+  },
+  {
+    "id": 4,
+    "event_id": 1,
+    "title": "Final Mood Poll",
+    "type": "poll",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 4,
+    "is_active": false,
+    "started_at": null,
+    "ended_at": null
+  },
+  {
+    "id": 5,
+    "event_id": 2,
+    "title": "Coffee or Tea?",
+    "type": "this_or_that",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": "2026-05-20 10:05:00",
+    "ended_at": "2026-05-20 10:10:00"
+  },
+  {
+    "id": 6,
+    "event_id": 2,
+    "title": "Quick Fun Facts",
+    "type": "poll",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 2,
+    "is_active": false,
+    "started_at": "2026-05-20 10:10:00",
+    "ended_at": "2026-05-20 10:20:00"
+  },
+  {
+    "id": 7,
+    "event_id": 3,
+    "title": "Company Trivia",
+    "type": "quiz",
+    "settings": {
+      "timer_seconds": 45
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": "2026-03-10 16:05:00",
+    "ended_at": "2026-03-10 16:35:00"
+  },
+  {
+    "id": 8,
+    "event_id": 3,
+    "title": "Pop Culture Round",
+    "type": "quiz",
+    "settings": {
+      "timer_seconds": 45
+    },
+    "order_index": 2,
+    "is_active": false,
+    "started_at": "2026-03-10 16:35:00",
+    "ended_at": "2026-03-10 17:00:00"
+  },
+  {
+    "id": 9,
+    "event_id": 4,
+    "title": "Mood Check-in",
+    "type": "poll",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": "2026-01-22 11:05:00",
+    "ended_at": "2026-01-22 11:25:00"
+  },
+  {
+    "id": 10,
+    "event_id": 5,
+    "title": "Holiday Bingo",
+    "type": "bingo",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": "2025-12-28 15:10:00",
+    "ended_at": "2025-12-28 15:40:00"
+  },
+  {
+    "id": 11,
+    "event_id": 17,
+    "title": "Live Warm-up",
+    "type": "this_or_that",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1,
+    "is_active": true,
+    "started_at": "2026-06-09 14:05:00",
+    "ended_at": null
+  },
+  {
+    "id": 12,
+    "event_id": 17,
+    "title": "Demo Quiz",
+    "type": "quiz",
+    "settings": {
+      "timer_seconds": 45
+    },
+    "order_index": 2,
+    "is_active": false,
+    "started_at": null,
+    "ended_at": null
+  },
+  {
+    "id": 13,
+    "event_id": 8,
+    "title": "Beach Item Hunt",
+    "type": "scavenger",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": "2025-08-14 14:10:00",
+    "ended_at": "2025-08-14 14:50:00"
+  },
+  {
+    "id": 14,
+    "event_id": 8,
+    "title": "Team Photo Challenge",
+    "type": "photo_upload",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 2,
+    "is_active": false,
+    "started_at": "2025-08-14 14:50:00",
+    "ended_at": "2025-08-14 15:20:00"
+  },
+  {
+    "id": 15,
+    "event_id": 11,
+    "title": "DevOps Round 1",
+    "type": "quiz",
+    "settings": {
+      "timer_seconds": 45
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": "2025-09-18 17:05:00",
+    "ended_at": "2025-09-18 17:30:00"
+  },
+  {
+    "id": 16,
+    "event_id": 7,
+    "title": "Costume Vote",
+    "type": "poll",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": "2025-10-31 18:10:00",
+    "ended_at": "2025-10-31 18:25:00"
+  },
+  {
+    "id": 17,
+    "event_id": 9,
+    "title": "Spring Icebreaker",
+    "type": "this_or_that",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": "2025-04-02 13:05:00",
+    "ended_at": "2025-04-02 13:20:00"
+  },
+  {
+    "id": 18,
+    "event_id": 6,
+    "title": "Welcome Bingo",
+    "type": "bingo",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": "2025-11-15 10:10:00",
+    "ended_at": "2025-11-15 10:45:00"
+  },
+  {
+    "id": 19,
+    "event_id": 10,
+    "title": "Sprint Warm-up",
+    "type": "poll",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": "2025-06-05 09:35:00",
+    "ended_at": "2025-06-05 09:50:00"
+  },
+  {
+    "id": 20,
+    "event_id": 12,
+    "title": "Collaboration Prompt",
+    "type": "open_text",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": null,
+    "ended_at": null
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "user_id": 4,
+    "target_type": "event",
+    "target_id": 2,
+    "content": "Класний формат для ранкового розігріву!",
+    "status": "active"
+  },
+  {
+    "id": 2,
+    "user_id": 5,
+    "target_type": "activity",
+    "target_id": 5,
+    "content": "This or That — найшвидший спосіб дізнатися про колег.",
+    "status": "active"
+  },
+  {
+    "id": 3,
+    "user_id": 6,
+    "target_type": "submission",
+    "target_id": 1,
+    "content": "Погоджуюсь — кава перемагає!",
+    "status": "active"
+  },
+  {
+    "id": 4,
+    "user_id": 7,
+    "target_type": "event",
+    "target_id": 1,
+    "content": "Чекаю на Team Olympics!",
+    "status": "active"
+  },
+  {
+    "id": 5,
+    "user_id": 8,
+    "target_type": "event",
+    "target_id": 3,
+    "content": "Q1 quiz був дуже змагальним.",
+    "status": "active"
+  },
+  {
+    "id": 6,
+    "user_id": 9,
+    "target_type": "event",
+    "target_id": 8,
+    "content": "Scavenger влітку — топ формат.",
+    "status": "active"
+  },
+  {
+    "id": 7,
+    "user_id": 12,
+    "target_type": "activity",
+    "target_id": 7,
+    "content": "Складні питання про компанію — супер.",
+    "status": "active"
+  },
+  {
+    "id": 8,
+    "user_id": 13,
+    "target_type": "event",
+    "target_id": 17,
+    "content": "Demo в реальному часі виглядає круто!",
+    "status": "active"
+  },
+  {
+    "id": 9,
+    "user_id": 14,
+    "target_type": "activity",
+    "target_id": 11,
+    "content": "Live warm-up зараз активний 🔥",
+    "status": "active"
+  },
+  {
+    "id": 10,
+    "user_id": 15,
+    "target_type": "submission",
+    "target_id": 3,
+    "content": "Fun Facts — мій фаворит.",
+    "status": "active"
+  },
+  {
+    "id": 11,
+    "user_id": 4,
+    "target_type": "event",
+    "target_id": 5,
+    "content": "Bingo на Новий рік — традиція.",
+    "status": "active"
+  },
+  {
+    "id": 12,
+    "user_id": 5,
+    "target_type": "event",
+    "target_id": 7,
+    "content": "Halloween костюми — найкраще.",
+    "status": "active"
+  },
+  {
+    "id": 13,
+    "user_id": 6,
+    "target_type": "event",
+    "target_id": 2,
+    "content": "Повністю згодна з попереднім коментарем!",
+    "status": "active"
+  },
+  {
+    "id": 14,
+    "user_id": 7,
+    "target_type": "activity",
+    "target_id": 13,
+    "content": "Фото з пляжем знайшов за 2 хв!",
+    "status": "active"
+  },
+  {
+    "id": 15,
+    "user_id": 8,
+    "target_type": "event",
+    "target_id": 11,
+    "content": "DevOps quiz — hardcore mode.",
+    "status": "active"
+  }
+]

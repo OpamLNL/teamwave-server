@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "user_id": 4,
+    "actor_id": null,
+    "type": "event_invite",
+    "target_type": "event",
+    "target_id": 1,
+    "preview": "Вас запрошено на захід NovaTech Team Olympics",
+    "is_read": false
+  },
+  {
+    "id": 2,
+    "user_id": 5,
+    "actor_id": 3,
+    "type": "activity_started",
+    "target_type": "activity",
+    "target_id": 2,
+    "preview": "Активність Live Warm-up розпочата",
+    "is_read": true
+  },
+  {
+    "id": 3,
+    "user_id": 6,
+    "actor_id": 10,
+    "type": "activity_ended",
+    "target_type": "event",
+    "target_id": 3,
+    "preview": "Активність Quick Fun Facts завершена",
+    "is_read": true
+  },
+  {
+    "id": 4,
+    "user_id": 7,
+    "actor_id": null,
+    "type": "score_update",
+    "target_type": "event",
+    "target_id": 4,
+    "preview": "Ваш рахунок оновлено: +15 балів",
+    "is_read": false
+  },
+  {
+    "id": 5,
+    "user_id": 8,
+    "actor_id": 2,
+    "type": "feedback_request",
+    "target_type": "activity",
+    "target_id": 5,
+    "preview": "Залиште відгук про минулий захід",
+    "is_read": true
+  },
+  {
+    "id": 6,
+    "user_id": 9,
+    "actor_id": 3,
+    "type": "system",
+    "target_type": "team",
+    "target_id": 6,
+    "preview": "Новий шаблон доступний у бібліотеці",
+    "is_read": true
+  },
+  {
+    "id": 7,
+    "user_id": 12,
+    "actor_id": null,
+    "type": "event_invite",
+    "target_type": "event",
+    "target_id": 7,
+    "preview": "Захід Q1 All-Hands Quiz завершено",
+    "is_read": false
+  },
+  {
+    "id": 8,
+    "user_id": 13,
+    "actor_id": 11,
+    "type": "activity_started",
+    "target_type": "activity",
+    "target_id": 8,
+    "preview": "Команда Nova Alpha піднялась у лідерборді",
+    "is_read": true
+  },
+  {
+    "id": 9,
+    "user_id": 14,
+    "actor_id": 2,
+    "type": "activity_ended",
+    "target_type": "event",
+    "target_id": 9,
+    "preview": "Нагадування: Beta Client Pilot через 3 дні",
+    "is_read": true
+  },
+  {
+    "id": 10,
+    "user_id": 15,
+    "actor_id": null,
+    "type": "score_update",
+    "target_type": "event",
+    "target_id": 10,
+    "preview": "Системне оновлення TeamWave v0.2",
+    "is_read": false
+  },
+  {
+    "id": 11,
+    "user_id": 4,
+    "actor_id": 10,
+    "type": "feedback_request",
+    "target_type": "activity",
+    "target_id": 1,
+    "preview": "Запрошення на Company Virtual Picnic",
+    "is_read": true
+  },
+  {
+    "id": 12,
+    "user_id": 5,
+    "actor_id": 11,
+    "type": "system",
+    "target_type": "team",
+    "target_id": 2,
+    "preview": "Activity Demo Quiz скоро стартує",
+    "is_read": true
+  },
+  {
+    "id": 13,
+    "user_id": 6,
+    "actor_id": null,
+    "type": "event_invite",
+    "target_type": "event",
+    "target_id": 3,
+    "preview": "Ваш коментар отримав лайк",
+    "is_read": false
+  },
+  {
+    "id": 14,
+    "user_id": 7,
+    "actor_id": 3,
+    "type": "activity_started",
+    "target_type": "activity",
+    "target_id": 4,
+    "preview": "Новий badge: Icebreaker Pro",
+    "is_read": true
+  },
+  {
+    "id": 15,
+    "user_id": 8,
+    "actor_id": 10,
+    "type": "activity_ended",
+    "target_type": "event",
+    "target_id": 5,
+    "preview": "Feedback request: Winter Wellness Hour",
+    "is_read": true
+  }
+]

@@ -1,0 +1,185 @@
+[
+  {
+    "id": 1,
+    "template_id": 1,
+    "title": "This or That",
+    "type": "this_or_that",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1
+  },
+  {
+    "id": 2,
+    "template_id": 1,
+    "title": "Fun Facts Poll",
+    "type": "poll",
+    "settings": {
+      "timer_seconds": 180
+    },
+    "order_index": 2
+  },
+  {
+    "id": 3,
+    "template_id": 2,
+    "title": "Company Trivia Round 1",
+    "type": "quiz",
+    "settings": {
+      "timer_seconds": 30,
+      "points_per_question": 10
+    },
+    "order_index": 1
+  },
+  {
+    "id": 4,
+    "template_id": 2,
+    "title": "Pop Culture Round",
+    "type": "quiz",
+    "settings": {
+      "timer_seconds": 30,
+      "points_per_question": 10
+    },
+    "order_index": 2
+  },
+  {
+    "id": 5,
+    "template_id": 3,
+    "title": "Home Scavenger Hunt",
+    "type": "scavenger",
+    "settings": {
+      "timer_seconds": 900,
+      "require_photo": true
+    },
+    "order_index": 1
+  },
+  {
+    "id": 6,
+    "template_id": 4,
+    "title": "Warm-up Poll",
+    "type": "this_or_that",
+    "settings": {
+      "timer_seconds": 90
+    },
+    "order_index": 1
+  },
+  {
+    "id": 7,
+    "template_id": 4,
+    "title": "Team Quiz",
+    "type": "quiz",
+    "settings": {
+      "timer_seconds": 45
+    },
+    "order_index": 2
+  },
+  {
+    "id": 8,
+    "template_id": 4,
+    "title": "Photo Challenge",
+    "type": "scavenger",
+    "settings": {
+      "timer_seconds": 600
+    },
+    "order_index": 3
+  },
+  {
+    "id": 9,
+    "template_id": 4,
+    "title": "Final Feedback Poll",
+    "type": "poll",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 4
+  },
+  {
+    "id": 10,
+    "template_id": 5,
+    "title": "Mood Check",
+    "type": "poll",
+    "settings": {
+      "timer_seconds": 90
+    },
+    "order_index": 1
+  },
+  {
+    "id": 11,
+    "template_id": 6,
+    "title": "Draw Your Mood",
+    "type": "photo_upload",
+    "settings": {
+      "timer_seconds": 300
+    },
+    "order_index": 1
+  },
+  {
+    "id": 12,
+    "template_id": 7,
+    "title": "Onboarding Bingo",
+    "type": "bingo",
+    "settings": {
+      "timer_seconds": 600
+    },
+    "order_index": 1
+  },
+  {
+    "id": 13,
+    "template_id": 8,
+    "title": "Leadership Prompt",
+    "type": "open_text",
+    "settings": {
+      "timer_seconds": 240
+    },
+    "order_index": 1
+  },
+  {
+    "id": 14,
+    "template_id": 9,
+    "title": "Typing Race",
+    "type": "typing_race",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1
+  },
+  {
+    "id": 15,
+    "template_id": 10,
+    "title": "All-Hands Poll",
+    "type": "poll",
+    "settings": {
+      "timer_seconds": 120
+    },
+    "order_index": 1
+  },
+  {
+    "id": 16,
+    "template_id": 11,
+    "title": "Costume Vote",
+    "type": "poll",
+    "settings": {
+      "timer_seconds": 90
+    },
+    "order_index": 1
+  },
+  {
+    "id": 17,
+    "template_id": 12,
+    "title": "Balloon Pop",
+    "type": "balloon_pop",
+    "settings": {
+      "timer_seconds": 180
+    },
+    "order_index": 1
+  },
+  {
+    "id": 18,
+    "template_id": 13,
+    "title": "Story Photo Hunt",
+    "type": "scavenger",
+    "settings": {
+      "timer_seconds": 720
+    },
+    "order_index": 1
+  }
+]

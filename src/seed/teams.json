@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "Nova Alpha",
+    "company_id": 1,
+    "description": "Команда розробки платформи."
+  },
+  {
+    "id": 2,
+    "name": "Nova Beta",
+    "company_id": 1,
+    "description": "Команда продукту та дизайну."
+  },
+  {
+    "id": 3,
+    "name": "Nova Gamma",
+    "company_id": 1,
+    "description": "Команда інфраструктури та DevOps."
+  },
+  {
+    "id": 4,
+    "name": "Demo Squad A",
+    "company_id": 2,
+    "description": "Перша демо-команда для тестів."
+  },
+  {
+    "id": 5,
+    "name": "Demo Squad B",
+    "company_id": 2,
+    "description": "Друга демо-команда для тестів."
+  },
+  {
+    "id": 6,
+    "name": "Cloud Core",
+    "company_id": 3,
+    "description": "Backend та cloud engineering."
+  },
+  {
+    "id": 7,
+    "name": "Cloud UX",
+    "company_id": 3,
+    "description": "Дизайн і frontend CloudBridge."
+  },
+  {
+    "id": 8,
+    "name": "Data Insights",
+    "company_id": 4,
+    "description": "Аналітики та data engineers."
+  },
+  {
+    "id": 9,
+    "name": "Data Growth",
+    "company_id": 4,
+    "description": "Маркетинг і growth DataPulse."
+  },
+  {
+    "id": 10,
+    "name": "Pixel Mobile",
+    "company_id": 5,
+    "description": "iOS та Android розробка."
+  },
+  {
+    "id": 11,
+    "name": "Pixel Web",
+    "company_id": 5,
+    "description": "Web та design система."
+  },
+  {
+    "id": 12,
+    "name": "Green Labs",
+    "company_id": 6,
+    "description": "R&D GreenLogic."
+  },
+  {
+    "id": 13,
+    "name": "Fin Payments",
+    "company_id": 7,
+    "description": "Платіжний стек FinEdge."
+  },
+  {
+    "id": 14,
+    "name": "Med Platform",
+    "company_id": 8,
+    "description": "Core platform MedSync."
+  },
+  {
+    "id": 15,
+    "name": "Edu Content",
+    "company_id": 9,
+    "description": "Контент і методологія EduSpark."
+  }
+]

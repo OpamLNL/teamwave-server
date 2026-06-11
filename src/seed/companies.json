@@ -1,0 +1,77 @@
+[
+  {
+    "id": 1,
+    "name": "NovaTech",
+    "description": "IT-компанія, яка проводить регулярні віддалені тімбілдинги для distributed-команд."
+  },
+  {
+    "id": 2,
+    "name": "TeamWave Demo Org",
+    "description": "Демо-організація для тестування шаблонів і сценаріїв TeamWave."
+  },
+  {
+    "id": 3,
+    "name": "CloudBridge",
+    "description": "Хмарні рішення та DevOps-консалтинг для enterprise-клієнтів."
+  },
+  {
+    "id": 4,
+    "name": "DataPulse",
+    "description": "Аналітика та BI для продуктових команд."
+  },
+  {
+    "id": 5,
+    "name": "PixelForge",
+    "description": "Студія мобільної та веб-розробки."
+  },
+  {
+    "id": 6,
+    "name": "GreenLogic",
+    "description": "GreenTech стартап з фокусом на sustainability."
+  },
+  {
+    "id": 7,
+    "name": "FinEdge",
+    "description": "Fintech-команда з distributed-офісами в Європі."
+  },
+  {
+    "id": 8,
+    "name": "MedSync",
+    "description": "HealthTech платформа для клінік."
+  },
+  {
+    "id": 9,
+    "name": "EduSpark",
+    "description": "EdTech продукт для корпоративного навчання."
+  },
+  {
+    "id": 10,
+    "name": "LogiTrack",
+    "description": "Логістична SaaS-платформа."
+  },
+  {
+    "id": 11,
+    "name": "CyberShield",
+    "description": "Кібербезпека та penetration testing."
+  },
+  {
+    "id": 12,
+    "name": "AgroSmart",
+    "description": "AgriTech рішення для фермерських кооперативів."
+  },
+  {
+    "id": 13,
+    "name": "RetailWave",
+    "description": "E-commerce та omnichannel retail."
+  },
+  {
+    "id": 14,
+    "name": "LegalFlow",
+    "description": "LegalTech для юридичних відділів."
+  },
+  {
+    "id": 15,
+    "name": "TravelNest",
+    "description": "TravelTech для корпоративних поїздок."
+  }
+]

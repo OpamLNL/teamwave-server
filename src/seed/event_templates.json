@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Icebreaker Starter",
+    "description": "15-хвилинний розігрів для нових команд.",
+    "category": "icebreaker",
+    "event_type": "icebreaker",
+    "is_public": true
+  },
+  {
+    "id": 2,
+    "name": "Team Quiz Night",
+    "description": "45-хвилинний командний квіз.",
+    "category": "quiz",
+    "event_type": "quiz",
+    "is_public": true
+  },
+  {
+    "id": 3,
+    "name": "Virtual Scavenger Sprint",
+    "description": "60-хвилинний фото-скавенджер.",
+    "category": "challenge",
+    "event_type": "challenge",
+    "is_public": true
+  },
+  {
+    "id": 4,
+    "name": "Team Olympics Lite",
+    "description": "Комбо: icebreaker → quiz → scavenger → poll.",
+    "category": "combined",
+    "event_type": "combined",
+    "is_public": true
+  },
+  {
+    "id": 5,
+    "name": "Wellness Check-in",
+    "description": "Короткий wellness poll і дихальна вправа.",
+    "category": "wellness",
+    "event_type": "wellness",
+    "is_public": true
+  },
+  {
+    "id": 6,
+    "name": "Creative Collage",
+    "description": "Спільна креативна активність.",
+    "category": "creative",
+    "event_type": "creative",
+    "is_public": true
+  },
+  {
+    "id": 7,
+    "name": "Onboarding Bingo",
+    "description": "Bingo для нових співробітників.",
+    "category": "game",
+    "event_type": "game",
+    "is_public": true
+  },
+  {
+    "id": 8,
+    "name": "Leadership Dialogue",
+    "description": "Open text для лідерів.",
+    "category": "collaborative",
+    "event_type": "collaborative",
+    "is_public": true
+  },
+  {
+    "id": 9,
+    "name": "Typing Race Sprint",
+    "description": "Швидкісний typing race.",
+    "category": "game",
+    "event_type": "game",
+    "is_public": true
+  },
+  {
+    "id": 10,
+    "name": "Hybrid Town Hall",
+    "description": "Poll + quiz для all-hands.",
+    "category": "hybrid",
+    "event_type": "hybrid",
+    "is_public": true
+  },
+  {
+    "id": 11,
+    "name": "Themed Halloween",
+    "description": "Тематичний themed захід.",
+    "category": "themed",
+    "event_type": "themed",
+    "is_public": true
+  },
+  {
+    "id": 12,
+    "name": "Balloon Pop Fun",
+    "description": "Balloon pop mini-game.",
+    "category": "game",
+    "event_type": "game",
+    "is_public": true
+  },
+  {
+    "id": 13,
+    "name": "Photo Story Hunt",
+    "description": "Scavenger + open text.",
+    "category": "challenge",
+    "event_type": "challenge",
+    "is_public": true
+  },
+  {
+    "id": 14,
+    "name": "NPS Feedback Loop",
+    "description": "Фінальний poll і NPS.",
+    "category": "combined",
+    "event_type": "combined",
+    "is_public": true
+  },
+  {
+    "id": 15,
+    "name": "Remote Picnic",
+    "description": "Легкий combined для пікніку.",
+    "category": "hybrid",
+    "event_type": "hybrid",
+    "is_public": true
+  }
+]

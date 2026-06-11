@@ -1,0 +1,77 @@
+[
+  {
+    "user_id": 4,
+    "target_type": "event",
+    "target_id": 1
+  },
+  {
+    "user_id": 5,
+    "target_type": "event",
+    "target_id": 2
+  },
+  {
+    "user_id": 6,
+    "target_type": "event",
+    "target_id": 3
+  },
+  {
+    "user_id": 7,
+    "target_type": "event",
+    "target_id": 8
+  },
+  {
+    "user_id": 8,
+    "target_type": "event",
+    "target_id": 14
+  },
+  {
+    "user_id": 9,
+    "target_type": "template",
+    "target_id": 4
+  },
+  {
+    "user_id": 12,
+    "target_type": "template",
+    "target_id": 1
+  },
+  {
+    "user_id": 13,
+    "target_type": "template",
+    "target_id": 3
+  },
+  {
+    "user_id": 14,
+    "target_type": "template",
+    "target_id": 7
+  },
+  {
+    "user_id": 15,
+    "target_type": "activity",
+    "target_id": 2
+  },
+  {
+    "user_id": 4,
+    "target_type": "activity",
+    "target_id": 7
+  },
+  {
+    "user_id": 5,
+    "target_type": "activity",
+    "target_id": 11
+  },
+  {
+    "user_id": 6,
+    "target_type": "event",
+    "target_id": 17
+  },
+  {
+    "user_id": 7,
+    "target_type": "template",
+    "target_id": 15
+  },
+  {
+    "user_id": 8,
+    "target_type": "activity",
+    "target_id": 5
+  }
+]

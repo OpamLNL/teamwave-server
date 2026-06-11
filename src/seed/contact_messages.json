@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "name": "Олег Василенко",
+    "email": "o.vasylenko@example.com",
+    "subject": "Демо для компанії",
+    "message": "Цікавить пілот TeamWave для 80 осіб."
+  },
+  {
+    "id": 2,
+    "name": "Ірина Сокол",
+    "email": "iryna.s@startup.io",
+    "subject": "Інтеграція з Slack",
+    "message": "Чи плануєте інтеграцію зі Slack для сповіщень?"
+  },
+  {
+    "id": 3,
+    "name": "Петро Млин",
+    "email": "petro@agency.ua",
+    "subject": "Кастомні шаблони",
+    "message": "Можна замовити розробку кастомного сценарію?"
+  },
+  {
+    "id": 4,
+    "name": "Анна Коваль",
+    "email": "anna.k@corp.com",
+    "subject": "Ціни",
+    "message": "Надішліть прайс для enterprise."
+  },
+  {
+    "id": 5,
+    "name": "Сергій Данилюк",
+    "email": "sergiy.d@gmail.com",
+    "subject": "Проблема з входом",
+    "message": "Не можу увійти через Google на staging."
+  },
+  {
+    "id": 6,
+    "name": "Марта Левко",
+    "email": "marta@hrtech.ua",
+    "subject": "Партнерство",
+    "message": "Пропонуємо співпрацю з HR-платформою."
+  },
+  {
+    "id": 7,
+    "name": "Владислав Черненко",
+    "email": "vlad@cowork.space",
+    "subject": "Coworking event",
+    "message": "Хочемо провести тімбілдинг для резидентів."
+  },
+  {
+    "id": 8,
+    "name": "Оксана Руденко",
+    "email": "oksana.r@edu.ua",
+    "subject": "Для університету",
+    "message": "Чи підходить платформа для студентських груп?"
+  },
+  {
+    "id": 9,
+    "name": "Денис Поліщук",
+    "email": "denys@devshop.com",
+    "subject": "API документація",
+    "message": "Де знайти Swagger для events API?"
+  },
+  {
+    "id": 10,
+    "name": "Галина Мельник",
+    "email": "halyna@ngo.org",
+    "subject": "Некомерційний тариф",
+    "message": "Чи є знижки для NGO?"
+  },
+  {
+    "id": 11,
+    "name": "Роман Зінченко",
+    "email": "roman.z@fintech.io",
+    "subject": "SSO",
+    "message": "Підтримка SAML/SSO у roadmap?"
+  },
+  {
+    "id": 12,
+    "name": "Тетяна Бойко",
+    "email": "tanya@design.studio",
+    "subject": "White-label",
+    "message": "Цікавить white-label для нашого бренду."
+  },
+  {
+    "id": 13,
+    "name": "Артем Савчук",
+    "email": "artem@games.dev",
+    "subject": "Mini-games",
+    "message": "Коли будуть typing race та balloon pop?"
+  },
+  {
+    "id": 14,
+    "name": "Юлія Герасименко",
+    "email": "yulia@growth.co",
+    "subject": "Аналітика",
+    "message": "Які метрики доступні організатору після заходу?"
+  },
+  {
+    "id": 15,
+    "name": "Костянтин Орлов",
+    "email": "kostya@logistics.ua",
+    "subject": "Українська локалізація",
+    "message": "Дякуємо за український інтерфейс!"
+  }
+]
