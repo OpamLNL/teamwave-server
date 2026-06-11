@@ -56,6 +56,19 @@ const createEvent = async (req, res) => {
     }
 };
 
+const createEventFromTemplate = async (req, res) => {
+    try {
+        const event = await eventService.createEventFromTemplate(
+            req.params.templateId,
+            req.body,
+            req.user
+        );
+        res.status(201).json(event);
+    } catch (err) {
+        handleError(res, err);
+    }
+};
+
 const updateEvent = async (req, res) => {
     try {
         const event = await eventService.updateEvent(req.params.id, req.body, req.user);
@@ -135,11 +148,30 @@ const getEventParticipants = async (req, res) => {
     }
 };
 
+const getEventTeamLeaderboard = async (req, res) => {
+    try {
+        const leaderboard = await eventService.getEventTeamLeaderboard(req.params.id);
+        res.json(leaderboard);
+    } catch (err) {
+        handleError(res, err);
+    }
+};
+
+const uploadEventCover = async (req, res) => {
+    try {
+        const event = await eventService.uploadEventCover(req.params.id, req.file, req.user);
+        res.json(event);
+    } catch (err) {
+        handleError(res, err);
+    }
+};
+
 module.exports = {
     listEvents,
     getEventById,
     getEventByJoinCode,
     createEvent,
+    createEventFromTemplate,
     updateEvent,
     deleteEvent,
     joinEvent,
@@ -148,4 +180,6 @@ module.exports = {
     getMyEvents,
     getEventActivities,
     getEventParticipants,
+    getEventTeamLeaderboard,
+    uploadEventCover,
 };

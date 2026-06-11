@@ -334,5 +334,61 @@
       "question_id": 19
     },
     "score": 11
+  },
+  {
+    "id": 29,
+    "activity_id": 21,
+    "user_id": 4,
+    "team_id": 1,
+    "content": { "type": "typing_race_team_result", "team_name": "Nova Alpha", "completion_time_ms": 154500, "rank": 1, "mode": "team_relay" },
+    "score": 45500
+  },
+  {
+    "id": 30,
+    "activity_id": 21,
+    "user_id": 7,
+    "team_id": 2,
+    "content": { "type": "typing_race_team_result", "team_name": "Nova Beta", "completion_time_ms": 161200, "rank": 2, "mode": "team_relay" },
+    "score": 38800
+  },
+  {
+    "id": 31,
+    "activity_id": 21,
+    "user_id": 12,
+    "team_id": 3,
+    "content": { "type": "typing_race_team_result", "team_name": "Nova Gamma", "completion_time_ms": 175800, "rank": 4, "mode": "team_relay" },
+    "score": 24200
+  },
+  {
+    "id": 32,
+    "activity_id": 21,
+    "user_id": 15,
+    "team_id": 6,
+    "content": { "type": "typing_race_team_result", "team_name": "Cloud Core", "completion_time_ms": 168000, "rank": 3, "mode": "team_relay" },
+    "score": 32000
+  },
+  {
+    "id": 33,
+    "activity_id": 22,
+    "user_id": 4,
+    "team_id": 4,
+    "content": { "type": "typing_race_team_result", "team_name": "Demo Squad A", "completion_time_ms": 132400, "rank": 1, "mode": "team_relay" },
+    "score": 67600
+  },
+  {
+    "id": 34,
+    "activity_id": 22,
+    "user_id": 12,
+    "team_id": 7,
+    "content": { "type": "typing_race_team_result", "team_name": "Cloud UX", "completion_time_ms": 139100, "rank": 2, "mode": "team_relay" },
+    "score": 60900
+  },
+  {
+    "id": 35,
+    "activity_id": 22,
+    "user_id": 7,
+    "team_id": 5,
+    "content": { "type": "typing_race_team_result", "team_name": "Demo Squad B", "completion_time_ms": 145600, "rank": 3, "mode": "team_relay" },
+    "score": 54400
   }
 ]

@@ -22,6 +22,9 @@ const REQUIRED_TABLES = [
     'user_badges',
     'notifications',
     'teammate_requests',
+    'event_teams',
+    'event_team_members',
+    'typing_race_runs',
 ];
 
 const LEGACY_TABLES = [
@@ -52,6 +55,12 @@ async function checkAndInitDatabase() {
 
         const { ensureTeammatesSchema } = require('./add-teammates');
         await ensureTeammatesSchema();
+
+        const { ensureTypingRaceSchema } = require('./add-typing-race');
+        await ensureTypingRaceSchema();
+
+        const { ensureEventMediaSchema } = require('./add-event-media');
+        await ensureEventMediaSchema();
     } catch (err) {
         console.error('❌ DB CHECK ERROR:', err);
         throw err;

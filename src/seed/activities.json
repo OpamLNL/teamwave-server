@@ -258,5 +258,94 @@
     "is_active": false,
     "started_at": null,
     "ended_at": null
+  },
+  {
+    "id": 21,
+    "event_id": 19,
+    "title": "Фінал: командний relay",
+    "type": "typing_race",
+    "settings": {
+      "timer_seconds": 300,
+      "mode": "team_relay",
+      "team_size": 4,
+      "scoring": "team_fastest_time",
+      "source_text": "TeamWave об'єднує віддалені команди разом швидше за всіх",
+      "slots": [
+        { "slot": 0, "label": "Гравець 1", "color": "#2563EB" },
+        { "slot": 1, "label": "Гравець 2", "color": "#DB2777" },
+        { "slot": 2, "label": "Гравець 3", "color": "#059669" },
+        { "slot": 3, "label": "Гравець 4", "color": "#D97706" }
+      ],
+      "segments": [
+        { "text": "TeamWave", "slot": 0 },
+        { "text": " ", "slot": null },
+        { "text": "об'єднує", "slot": 1 },
+        { "text": " ", "slot": null },
+        { "text": "віддалені", "slot": 2 },
+        { "text": " ", "slot": null },
+        { "text": "команди", "slot": 2 },
+        { "text": " ", "slot": null },
+        { "text": "разом", "slot": 3 },
+        { "text": " ", "slot": null },
+        { "text": "швидше", "slot": 3 },
+        { "text": " ", "slot": null },
+        { "text": "за", "slot": 3 },
+        { "text": " ", "slot": null },
+        { "text": "всіх", "slot": 3 }
+      ],
+      "rules": [
+        "Команді показують текст; кожен гравець бачить слова лише свого кольору",
+        "Друкувати можна лише в черзі — після завершення сегмента хід переходить далі",
+        "Перемагає команда з найменшим сумарним часом проходження"
+      ]
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": "2026-04-12 15:10:00",
+    "ended_at": "2026-04-12 15:45:00"
+  },
+  {
+    "id": 22,
+    "event_id": 20,
+    "title": "Typing Cup — фінал",
+    "type": "typing_race",
+    "settings": {
+      "timer_seconds": 240,
+      "mode": "team_relay",
+      "team_size": 3,
+      "scoring": "team_fastest_time",
+      "source_text": "Разом ми набираємо текст без помилок і перемагаємо",
+      "slots": [
+        { "slot": 0, "label": "Гравець 1", "color": "#7C3AED" },
+        { "slot": 1, "label": "Гравець 2", "color": "#0891B2" },
+        { "slot": 2, "label": "Гравець 3", "color": "#E11D48" }
+      ],
+      "segments": [
+        { "text": "Разом", "slot": 0 },
+        { "text": " ", "slot": null },
+        { "text": "ми", "slot": 0 },
+        { "text": " ", "slot": null },
+        { "text": "набираємо", "slot": 1 },
+        { "text": " ", "slot": null },
+        { "text": "текст", "slot": 1 },
+        { "text": " ", "slot": null },
+        { "text": "без", "slot": 2 },
+        { "text": " ", "slot": null },
+        { "text": "помилок", "slot": 2 },
+        { "text": " ", "slot": null },
+        { "text": "і", "slot": 2 },
+        { "text": " ", "slot": null },
+        { "text": "перемагаємо", "slot": 2 }
+      ],
+      "rules": [
+        "Три гравці в команді — три кольори сегментів",
+        "Черга циклічна: 1 → 2 → 3 → 1 …",
+        "Рейтинг будується між командами-учасниками заходу"
+      ]
+    },
+    "order_index": 1,
+    "is_active": false,
+    "started_at": "2026-03-05 11:05:00",
+    "ended_at": "2026-03-05 11:35:00"
   }
 ]

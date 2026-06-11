@@ -268,5 +268,35 @@
     "is_public": false,
     "template_id": 4,
     "join_code": "BETAP1"
+  },
+  {
+    "id": 19,
+    "title": "NovaTech Typing Cup 2026",
+    "description": "Корпоративний кубок з командного typing relay. 4 named-команди — хто швидше набере текст.",
+    "start_time": "2026-04-12 15:00:00",
+    "duration_minutes": 50,
+    "status": "finished",
+    "type": "game",
+    "organizer_id": 2,
+    "host_id": 3,
+    "max_participants": 16,
+    "is_public": true,
+    "template_id": 16,
+    "join_code": "TYPE26"
+  },
+  {
+    "id": 20,
+    "title": "Demo Keyboard Relay",
+    "description": "Демо Typing Cup між трьома командами по 3 гравці.",
+    "start_time": "2026-03-05 11:00:00",
+    "duration_minutes": 40,
+    "status": "finished",
+    "type": "game",
+    "organizer_id": 2,
+    "host_id": 3,
+    "max_participants": 12,
+    "is_public": true,
+    "template_id": 17,
+    "join_code": "KEYBD3"
   }
 ]

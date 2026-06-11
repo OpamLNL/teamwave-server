@@ -878,5 +878,26 @@
     "team_id": 2,
     "role_in_event": "participant",
     "score": 0
-  }
+  },
+  { "id": 111, "event_id": 19, "user_id": 4, "team_id": 1, "role_in_event": "participant", "score": 0 },
+  { "id": 112, "event_id": 19, "user_id": 5, "team_id": 1, "role_in_event": "participant", "score": 0 },
+  { "id": 113, "event_id": 19, "user_id": 6, "team_id": 1, "role_in_event": "participant", "score": 0 },
+  { "id": 114, "event_id": 19, "user_id": 7, "team_id": 2, "role_in_event": "participant", "score": 0 },
+  { "id": 115, "event_id": 19, "user_id": 8, "team_id": 2, "role_in_event": "participant", "score": 0 },
+  { "id": 116, "event_id": 19, "user_id": 9, "team_id": 2, "role_in_event": "participant", "score": 0 },
+  { "id": 117, "event_id": 19, "user_id": 12, "team_id": 3, "role_in_event": "participant", "score": 0 },
+  { "id": 118, "event_id": 19, "user_id": 13, "team_id": 3, "role_in_event": "participant", "score": 0 },
+  { "id": 119, "event_id": 19, "user_id": 14, "team_id": 3, "role_in_event": "participant", "score": 0 },
+  { "id": 120, "event_id": 19, "user_id": 15, "team_id": 6, "role_in_event": "participant", "score": 0 },
+  { "id": 121, "event_id": 19, "user_id": 10, "team_id": 6, "role_in_event": "participant", "score": 0 },
+  { "id": 122, "event_id": 19, "user_id": 11, "team_id": 6, "role_in_event": "participant", "score": 0 },
+  { "id": 123, "event_id": 20, "user_id": 4, "team_id": 4, "role_in_event": "participant", "score": 0 },
+  { "id": 124, "event_id": 20, "user_id": 5, "team_id": 4, "role_in_event": "participant", "score": 0 },
+  { "id": 125, "event_id": 20, "user_id": 6, "team_id": 4, "role_in_event": "participant", "score": 0 },
+  { "id": 126, "event_id": 20, "user_id": 7, "team_id": 5, "role_in_event": "participant", "score": 0 },
+  { "id": 127, "event_id": 20, "user_id": 8, "team_id": 5, "role_in_event": "participant", "score": 0 },
+  { "id": 128, "event_id": 20, "user_id": 9, "team_id": 5, "role_in_event": "participant", "score": 0 },
+  { "id": 129, "event_id": 20, "user_id": 12, "team_id": 7, "role_in_event": "participant", "score": 0 },
+  { "id": 130, "event_id": 20, "user_id": 13, "team_id": 7, "role_in_event": "participant", "score": 0 },
+  { "id": 131, "event_id": 20, "user_id": 14, "team_id": 7, "role_in_event": "participant", "score": 0 }
 ]

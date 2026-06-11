@@ -10,6 +10,7 @@
     "test:watch": "jest --config jest.config.prod.js --watch",
     "test:cov": "jest --coverage",
     "db:reset": "node ./src/migrations/init-db.js",
+    "seed:typing-race": "node ./scripts/seed-typing-race.mjs",
     "migrate:imgbb": "node ./scripts/migrate-local-media-to-imgbb.js",
     "media:public": "node ./scripts/replace-local-media-with-public-urls.js"
   },

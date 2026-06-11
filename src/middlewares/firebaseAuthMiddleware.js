@@ -37,3 +37,11 @@ const firebaseAuthMiddleware = async (req, res, next) => {
 };
 
 module.exports = firebaseAuthMiddleware;
+module.exports.optionalFirebaseAuth = async (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        req.user = null;
+        return next();
+    }
+    return firebaseAuthMiddleware(req, res, next);
+};

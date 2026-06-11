@@ -63,8 +63,8 @@ const createEvent = async (data) => {
     const result = await query(`
         INSERT INTO events (
             title, description, start_time, duration_minutes, status, type,
-            organizer_id, host_id, max_participants, is_public, template_id, join_code
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            organizer_id, host_id, max_participants, is_public, template_id, join_code, icon, cover_url
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `, [
         data.title,
         data.description || null,
@@ -78,6 +78,8 @@ const createEvent = async (data) => {
         Boolean(data.is_public),
         data.template_id ?? null,
         data.join_code,
+        data.icon ?? null,
+        data.cover_url ?? null,
     ]);
 
     return getEventById(result.insertId);
@@ -90,6 +92,7 @@ const updateEvent = async (id, data) => {
     const allowed = [
         'title', 'description', 'start_time', 'duration_minutes', 'status', 'type',
         'host_id', 'max_participants', 'is_public', 'template_id', 'join_code',
+        'icon', 'cover_url', 'cover_delete_url',
     ];
 
     for (const key of allowed) {
@@ -181,6 +184,40 @@ const joinCodeExists = async (joinCode, excludeId = null) => {
     return rows.length > 0;
 };
 
+const getTeamLeaderboardByEventId = async (eventId) => {
+    const eventTeams = await query(
+        `SELECT
+            id AS team_id,
+            name AS team_name,
+            completion_time_ms
+         FROM event_teams
+         WHERE event_id = ?
+           AND status = 'finished'
+           AND completion_time_ms IS NOT NULL
+         ORDER BY completion_time_ms ASC, id ASC`,
+        [eventId]
+    );
+
+    if (eventTeams.length) {
+        return eventTeams;
+    }
+
+    return query(
+        `SELECT
+            t.id AS team_id,
+            t.name AS team_name,
+            MIN(CAST(JSON_UNQUOTE(JSON_EXTRACT(s.content, '$.completion_time_ms')) AS UNSIGNED)) AS completion_time_ms,
+            MIN(CAST(JSON_UNQUOTE(JSON_EXTRACT(s.content, '$.rank')) AS UNSIGNED)) AS rank_position
+         FROM submissions s
+         INNER JOIN activities a ON a.id = s.activity_id AND a.event_id = ? AND a.type = 'typing_race'
+         INNER JOIN teams t ON t.id = s.team_id
+         WHERE JSON_EXTRACT(s.content, '$.type') = 'typing_race_team_result'
+         GROUP BY t.id, t.name
+         ORDER BY completion_time_ms ASC`,
+        [eventId]
+    );
+};
+
 module.exports = {
     listEvents,
     getEventById,
@@ -195,4 +232,5 @@ module.exports = {
     removeParticipant,
     getEventsForUser,
     joinCodeExists,
+    getTeamLeaderboardByEventId,
 };
