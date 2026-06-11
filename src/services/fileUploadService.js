@@ -7,6 +7,8 @@ const getWorkImagesFolder = (workId) => ensureUploadDir('works', String(workId),
 
 const getUserFolder = (userId) => ensureUploadDir('users', String(userId));
 
+const getEventCoversFolder = (eventId) => ensureUploadDir('events', String(eventId));
+
 const getWorkChaptersFolder = (workId) => ensureUploadDir('works', String(workId), 'chapters');
 
 const getFandomCoversFolder = () => ensureUploadDir('fandoms');
@@ -70,6 +72,32 @@ const saveUserAvatar = async (userId, file) => {
     };
 };
 
+const saveEventCover = async (eventId, file) => {
+    if (imgbbService.isConfigured()) {
+        return await imgbbService.uploadImageFile(file, `event-cover-${eventId}`);
+    }
+
+    const eventDir = getEventCoversFolder(eventId);
+    const ext = path.extname(file.originalname) || '.jpg';
+    const fileName = `cover-${Date.now()}${ext}`;
+    const filePath = path.join(eventDir, fileName);
+
+    if (fs.existsSync(eventDir)) {
+        for (const entry of fs.readdirSync(eventDir)) {
+            if (entry.startsWith('cover')) {
+                fs.unlinkSync(path.join(eventDir, entry));
+            }
+        }
+    }
+
+    fs.renameSync(file.path, filePath);
+
+    return {
+        url: getPublicPath(filePath),
+        deleteUrl: null,
+    };
+};
+
 const saveFandomCover = async (fandomId, file) => {
     if (imgbbService.isConfigured()) {
         return await imgbbService.uploadImageFile(file, `fandom-${fandomId}`);
@@ -105,6 +133,7 @@ const saveWorkChapter = async (workId, title, content, orderIndex) => {
 module.exports = {
     saveWorkImage,
     saveUserAvatar,
+    saveEventCover,
     saveFandomCover,
     saveWorkChapter,
 };

@@ -77,7 +77,7 @@ const getEventByJoinCode = async (joinCode) => {
 const createEvent = async (data, user) => {
     if (!user) throw new Error('Не авторизований');
     if (user.is_blocked) throw new Error('Користувач заблокований');
-    if (!['admin', 'organizer', 'host'].includes(user.role)) {
+    if (!STAFF_ROLES.includes(String(user.role || '').toLowerCase())) {
         throw new Error('Недостатньо прав для створення заходу');
     }
 
@@ -227,7 +227,7 @@ const getEventTeamLeaderboard = async (eventId) => {
 
 const createEventFromTemplate = async (templateId, data, user) => {
     if (!user) throw new Error('Не авторизований');
-    if (!['admin', 'organizer', 'host'].includes(user.role)) {
+    if (!STAFF_ROLES.includes(String(user.role || '').toLowerCase())) {
         throw new Error('Недостатньо прав для створення заходу');
     }
 

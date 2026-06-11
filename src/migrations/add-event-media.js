@@ -1,4 +1,5 @@
 const { query } = require('../config/database');
+const { CATEGORY_ICONS, TEMPLATE_ICONS } = require('../utils/eventIcons');
 
 const EVENT_COLUMNS = [
     { name: 'icon', sql: 'VARCHAR(16) NULL DEFAULT NULL AFTER join_code' },
@@ -22,6 +23,31 @@ async function ensureColumn(table, column, definition) {
     }
 }
 
+async function backfillTemplateIcons() {
+    for (const [id, icon] of Object.entries(TEMPLATE_ICONS)) {
+        await query(
+            'UPDATE event_templates SET icon = ? WHERE id = ? AND (icon IS NULL OR icon = \'\')',
+            [icon, Number(id)]
+        );
+    }
+
+    for (const [category, icon] of Object.entries(CATEGORY_ICONS)) {
+        await query(
+            'UPDATE event_templates SET icon = ? WHERE category = ? AND (icon IS NULL OR icon = \'\')',
+            [icon, category]
+        );
+    }
+}
+
+async function backfillEventIcons() {
+    for (const [type, icon] of Object.entries(CATEGORY_ICONS)) {
+        await query(
+            'UPDATE events SET icon = ? WHERE type = ? AND (icon IS NULL OR icon = \'\')',
+            [icon, type]
+        );
+    }
+}
+
 async function ensureEventMediaSchema() {
     for (const col of EVENT_COLUMNS) {
         await ensureColumn('events', col.name, col.sql);
@@ -29,6 +55,9 @@ async function ensureEventMediaSchema() {
     for (const col of TEMPLATE_COLUMNS) {
         await ensureColumn('event_templates', col.name, col.sql);
     }
+
+    await backfillTemplateIcons();
+    await backfillEventIcons();
 }
 
 module.exports = { ensureEventMediaSchema };

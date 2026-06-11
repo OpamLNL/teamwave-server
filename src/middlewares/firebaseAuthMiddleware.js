@@ -31,8 +31,19 @@ const firebaseAuthMiddleware = async (req, res, next) => {
 
         next();
     } catch (error) {
-        console.error('Firebase auth error:', error);
-        res.status(401).json({ error: 'Недійсний або прострочений токен' });
+        const isExpired = error?.code === 'auth/id-token-expired'
+            || error?.errorInfo?.code === 'auth/id-token-expired';
+
+        if (!isExpired) {
+            console.error('Firebase auth error:', error);
+        }
+
+        res.status(401).json({
+            error: isExpired
+                ? 'Сесія закінчилась. Увійдіть знову або оновіть сторінку.'
+                : 'Недійсний або прострочений токен',
+            code: isExpired ? 'TOKEN_EXPIRED' : 'AUTH_FAILED',
+        });
     }
 };
 

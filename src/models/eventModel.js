@@ -4,6 +4,8 @@ const EVENT_TYPES = [
     'creative', 'wellness', 'hybrid', 'themed', 'combined',
 ];
 
+const { resolveIcon } = require('../utils/eventIcons');
+
 const createEventEntity = (row) => ({
     id: row.id,
     title: row.title,
@@ -18,6 +20,8 @@ const createEventEntity = (row) => ({
     is_public: Boolean(row.is_public),
     template_id: row.template_id,
     join_code: row.join_code,
+    icon: resolveIcon(row),
+    cover_url: row.cover_url ?? null,
     created_at: row.created_at,
     organizer_name: row.organizer_name ?? null,
     organizer_avatar: row.organizer_avatar ?? null,
@@ -46,6 +50,8 @@ const createTemplateEntity = (row) => ({
     category: row.category,
     event_type: row.event_type,
     is_public: Boolean(row.is_public),
+    icon: resolveIcon({ ...row, type: row.event_type }),
+    cover_url: row.cover_url ?? null,
     created_at: row.created_at,
     activities_count: row.activities_count != null ? Number(row.activities_count) : 0,
 });

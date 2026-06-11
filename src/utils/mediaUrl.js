@@ -40,7 +40,9 @@ const MEDIA_FIELD_KEYS = new Set([
     'actor_avatar',
     'reporter_avatar',
     'image_path',
+    'cover_url',
     'cover_image',
+    'cover_delete_url',
     'image_url',
 ]);
 
