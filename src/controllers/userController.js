@@ -40,6 +40,11 @@ const getUserStats = async (req, res) => {
     res.json(stats);
 };
 
+const getUserTeams = async (req, res) => {
+    const teams = await userService.getUserTeams(req.params.id);
+    res.json(teams);
+};
+
 const getPopularAuthors = async (req, res) => {
     const limit = Math.min(Math.max(parseInt(req.query.limit, 10) || 3, 1), 20);
     const authors = await userService.getPopularAuthors(limit);
@@ -116,6 +121,7 @@ module.exports = {
     getUserEvents,
     getUserComments,
     getUserStats,
+    getUserTeams,
     getPopularAuthors,
     getMe,
     getMyEvents,

@@ -21,6 +21,7 @@ const REQUIRED_TABLES = [
     'badges',
     'user_badges',
     'notifications',
+    'teammate_requests',
 ];
 
 const LEGACY_TABLES = [
@@ -48,6 +49,9 @@ async function checkAndInitDatabase() {
         } else {
             console.log('✅ TeamWave schema is up to date.');
         }
+
+        const { ensureTeammatesSchema } = require('./add-teammates');
+        await ensureTeammatesSchema();
     } catch (err) {
         console.error('❌ DB CHECK ERROR:', err);
         throw err;

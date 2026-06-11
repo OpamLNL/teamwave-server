@@ -100,8 +100,46 @@ const notifyEventInvite = async ({ recipientId, actorId, eventId, preview }) => 
     }
 };
 
+const notifyTeamInvite = async ({ recipientId, actorId }) => {
+    try {
+        await createIfNotSelf({
+            recipientId,
+            actorId,
+            type: 'team_invite',
+            targetType: 'user',
+            targetId: actorId,
+            preview: 'Запрошення приєднатися до команди',
+        });
+    } catch (err) {
+        console.error('notifyTeamInvite error:', err.message);
+    }
+};
+
+const getUserNotifications = async (userId) => {
+    return notificationRepository.getUserNotifications(userId);
+};
+
+const getUnreadCount = async (userId) => {
+    return notificationRepository.getUnreadCount(userId);
+};
+
+const markAsRead = async (userId, notificationId) => {
+    await notificationRepository.markAsRead(userId, notificationId);
+    return { success: true };
+};
+
+const markAllAsRead = async (userId) => {
+    await notificationRepository.markAllAsRead(userId);
+    return { success: true };
+};
+
 module.exports = {
     notifyLike,
     notifyComment,
     notifyEventInvite,
+    notifyTeamInvite,
+    getUserNotifications,
+    getUnreadCount,
+    markAsRead,
+    markAllAsRead,
 };

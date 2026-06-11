@@ -4,7 +4,9 @@ const EVENT_SELECT = `
     SELECT
         e.*,
         org.name AS organizer_name,
+        org.avatar_url AS organizer_avatar,
         host.name AS host_name,
+        host.avatar_url AS host_avatar,
         (SELECT COUNT(*) FROM event_participants ep WHERE ep.event_id = e.id) AS participants_count,
         (SELECT COUNT(*) FROM activities a WHERE a.event_id = e.id) AS activities_count
     FROM events e

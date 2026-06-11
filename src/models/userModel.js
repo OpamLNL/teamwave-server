@@ -27,6 +27,7 @@ const createUserEntity = ({
     comments_count,
     likes_count,
     favorites_count,
+    teammates_count,
 }) => ({
     id,
     firebase_uid,
@@ -49,6 +50,7 @@ const createUserEntity = ({
     comments_count: Number(comments_count ?? 0),
     likes_count: Number(likes_count ?? 0),
     favorites_count: Number(favorites_count ?? 0),
+    teammates_count: Number(teammates_count ?? 0),
 });
 
 module.exports = {

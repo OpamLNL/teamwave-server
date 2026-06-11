@@ -97,6 +97,13 @@ const getUserStats = async (userId) => {
     return await userRepository.getUserStats(id);
 };
 
+const getUserTeams = async (userId) => {
+    const id = await resolveUserId(userId);
+    const user = await userRepository.getUserById(id);
+    if (!user) throw new Error('Користувача не знайдено');
+    return userRepository.getUserTeams(id);
+};
+
 const getPopularAuthors = async (limit = 3) => {
     return userRepository.getPopularAuthors(limit);
 };
@@ -135,6 +142,11 @@ const updateUser = async (userId, userData) => {
         email: userData.email !== undefined ? userData.email : existing.email,
         name: userData.name !== undefined ? userData.name : existing.name,
         avatar_url: userData.avatar_url !== undefined ? userData.avatar_url : existing.avatar_url,
+        bio: userData.bio !== undefined ? userData.bio : existing.bio,
+        company: userData.company !== undefined ? userData.company : existing.company,
+        position: userData.position !== undefined ? userData.position : existing.position,
+        timezone: userData.timezone !== undefined ? userData.timezone : existing.timezone,
+        interests: userData.interests !== undefined ? userData.interests : existing.interests,
         ...(userData.show_mature_content !== undefined
             ? { show_mature_content: Boolean(userData.show_mature_content) }
             : {}),
@@ -220,6 +232,7 @@ module.exports = {
     getUserComments,
     getReceivedComments,
     getUserStats,
+    getUserTeams,
     getPopularAuthors,
     createUser,
     updateUser,

@@ -334,6 +334,22 @@ async function createTables() {
     `);
 
     await query(`
+        CREATE TABLE IF NOT EXISTS teammate_requests (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            from_user_id INT NOT NULL,
+            to_user_id INT NOT NULL,
+            status ENUM('pending', 'accepted', 'declined') NOT NULL DEFAULT 'pending',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            UNIQUE KEY uniq_teammate_pair (from_user_id, to_user_id),
+            FOREIGN KEY (from_user_id) REFERENCES users(id) ON DELETE CASCADE,
+            FOREIGN KEY (to_user_id) REFERENCES users(id) ON DELETE CASCADE,
+            INDEX idx_teammate_to_status (to_user_id, status),
+            INDEX idx_teammate_from_status (from_user_id, status)
+        )
+    `);
+
+    await query(`
         CREATE TABLE IF NOT EXISTS notifications (
             id INT AUTO_INCREMENT PRIMARY KEY,
             user_id INT NOT NULL,
@@ -344,6 +360,7 @@ async function createTables() {
                 'activity_ended',
                 'score_update',
                 'feedback_request',
+                'team_invite',
                 'system'
             ) NOT NULL,
             target_type ENUM('event', 'activity', 'team', 'user') NULL,

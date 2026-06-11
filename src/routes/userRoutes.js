@@ -48,6 +48,7 @@ router.get(
 );
 
 router.get('/:id/events', asyncHandler(userController.getUserEvents));
+router.get('/:id/teams', asyncHandler(userController.getUserTeams));
 router.get('/:id/comments', asyncHandler(userController.getUserComments));
 router.get('/:id/stats', asyncHandler(userController.getUserStats));
 

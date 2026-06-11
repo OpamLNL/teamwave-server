@@ -119,6 +119,11 @@ const getUserStats = async (userId) => {
     const comments = await query('SELECT COUNT(*) AS count FROM comments WHERE user_id = ?', [userId]);
     const likes = await query('SELECT COUNT(*) AS count FROM likes WHERE user_id = ?', [userId]);
     const favorites = await query('SELECT COUNT(*) AS count FROM favorites WHERE user_id = ?', [userId]);
+    const teammates = await query(
+        `SELECT COUNT(*) AS count FROM teammate_requests
+         WHERE status = 'accepted' AND (from_user_id = ? OR to_user_id = ?)`,
+        [userId, userId]
+    );
 
     return {
         events_organized_count: Number(organized[0].count ?? 0),
@@ -127,7 +132,25 @@ const getUserStats = async (userId) => {
         comments_count: Number(comments[0].count ?? 0),
         likes_count: Number(likes[0].count ?? 0),
         favorites_count: Number(favorites[0].count ?? 0),
+        teammates_count: Number(teammates[0]?.count ?? 0),
     };
+};
+
+const getUserTeams = async (userId) => {
+    return query(
+        `SELECT
+            t.id,
+            t.name,
+            t.description,
+            c.name AS company_name,
+            tm.joined_at
+         FROM team_members tm
+         JOIN teams t ON t.id = tm.team_id
+         LEFT JOIN companies c ON c.id = t.company_id
+         WHERE tm.user_id = ?
+         ORDER BY tm.joined_at DESC`,
+        [userId]
+    );
 };
 
 const getPopularAuthors = async (limit = 3) => {
@@ -187,6 +210,11 @@ const updateUser = async (id, data) => {
         avatar_url,
         avatar_delete_url,
         show_mature_content,
+        bio,
+        company,
+        position,
+        timezone,
+        interests,
     } = data;
 
     const fields = ['email = ?', 'name = ?', 'avatar_url = ?'];
@@ -201,6 +229,31 @@ const updateUser = async (id, data) => {
         fields.push('show_mature_content = ?', 'mature_confirmed_at = ?');
         values.push(Boolean(show_mature_content));
         values.push(show_mature_content ? new Date() : null);
+    }
+
+    if (bio !== undefined) {
+        fields.push('bio = ?');
+        values.push(bio || null);
+    }
+
+    if (company !== undefined) {
+        fields.push('company = ?');
+        values.push(company || null);
+    }
+
+    if (position !== undefined) {
+        fields.push('position = ?');
+        values.push(position || null);
+    }
+
+    if (timezone !== undefined) {
+        fields.push('timezone = ?');
+        values.push(timezone || 'Europe/Kyiv');
+    }
+
+    if (interests !== undefined) {
+        fields.push('interests = ?');
+        values.push(interests ? JSON.stringify(interests) : null);
     }
 
     values.push(id);
@@ -267,6 +320,7 @@ module.exports = {
     getUserComments,
     getReceivedComments,
     getUserStats,
+    getUserTeams,
     getPopularAuthors,
     createUser,
     updateUser,

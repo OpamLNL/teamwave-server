@@ -20,7 +20,9 @@ const createEventEntity = (row) => ({
     join_code: row.join_code,
     created_at: row.created_at,
     organizer_name: row.organizer_name ?? null,
+    organizer_avatar: row.organizer_avatar ?? null,
     host_name: row.host_name ?? null,
+    host_avatar: row.host_avatar ?? null,
     participants_count: row.participants_count != null ? Number(row.participants_count) : 0,
     activities_count: row.activities_count != null ? Number(row.activities_count) : 0,
 });

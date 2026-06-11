@@ -10,8 +10,10 @@ const adminRoutes = require('./adminRoutes');
 const contactRoutes = require('./contactRoutes');
 const eventRoutes = require('./eventRoutes');
 const eventTemplateRoutes = require('./eventTemplateRoutes');
+const teammateRoutes = require('./teammateRoutes');
 
 router.use('/api/users', userRoutes);
+router.use('/api/teammates', teammateRoutes);
 router.use('/api/events', eventRoutes);
 router.use('/api/event-templates', eventTemplateRoutes);
 router.use('/api/comments', commentRoutes);
