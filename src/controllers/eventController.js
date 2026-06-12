@@ -166,6 +166,14 @@ const uploadEventCover = async (req, res) => {
     }
 };
 
+const streamEventCover = async (req, res) => {
+    try {
+        await eventService.streamEventCover(req.params.id, res);
+    } catch (err) {
+        handleError(res, err);
+    }
+};
+
 module.exports = {
     listEvents,
     getEventById,
@@ -182,4 +190,5 @@ module.exports = {
     getEventParticipants,
     getEventTeamLeaderboard,
     uploadEventCover,
+    streamEventCover,
 };

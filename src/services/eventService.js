@@ -298,6 +298,43 @@ const uploadEventCover = async (eventId, file, user) => {
     return createEventEntity(row);
 };
 
+const streamEventCover = async (eventId, res) => {
+    const event = await eventRepository.getEventById(eventId);
+    if (!event?.cover_url) {
+        throw new Error('Обкладинку не знайдено');
+    }
+
+    const coverUrl = event.cover_url;
+
+    if (imgbbService.isLocalUploadPath(coverUrl)) {
+        const fs = require('fs');
+        const path = require('path');
+        const { getUploadsRoot } = require('../utils/uploadPaths');
+        const relative = String(coverUrl).replace(/^\/uploads\/?/, '');
+        const localPath = path.join(getUploadsRoot(), relative);
+
+        if (!fs.existsSync(localPath)) {
+            throw new Error('Файл обкладинки не знайдено');
+        }
+
+        res.set('Cache-Control', 'public, max-age=86400');
+        return res.sendFile(localPath);
+    }
+
+    const response = await fetch(coverUrl, {
+        headers: { 'User-Agent': 'TeamWave-Server/1.0' },
+    });
+
+    if (!response.ok) {
+        throw new Error('Не вдалося завантажити обкладинку');
+    }
+
+    const contentType = response.headers.get('content-type') || 'image/jpeg';
+    res.set('Content-Type', contentType);
+    res.set('Cache-Control', 'public, max-age=86400');
+    res.send(Buffer.from(await response.arrayBuffer()));
+};
+
 module.exports = {
     listEvents,
     getEventById,
@@ -313,6 +350,7 @@ module.exports = {
     getEventTeamLeaderboard,
     createEventFromTemplate,
     uploadEventCover,
+    streamEventCover,
     canManageEvent,
     STAFF_ROLES,
 };

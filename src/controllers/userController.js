@@ -97,6 +97,16 @@ const uploadMyAvatar = async (req, res) => {
     res.json(user);
 };
 
+const streamUserAvatar = async (req, res) => {
+    try {
+        await userService.streamUserAvatar(req.params.id, res);
+    } catch (error) {
+        res.status(error.message?.includes('не знайдено') ? 404 : 502).json({
+            error: error.message || 'Не вдалося завантажити аватар',
+        });
+    }
+};
+
 const updateUserRole = async (req, res) => {
     const user = await userService.updateUserRole(req.params.id, req.body.role);
     res.json(user);
@@ -132,6 +142,7 @@ module.exports = {
     updateMe,
     uploadAvatar,
     uploadMyAvatar,
+    streamUserAvatar,
     updateUserRole,
     updateUserBlockedStatus,
     deleteUser

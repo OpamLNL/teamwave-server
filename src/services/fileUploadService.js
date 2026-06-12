@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const imgbbService = require('./imgbbService');
-const { ensureUploadDir, getUploadsRoot } = require('../utils/uploadPaths');
+const { ensureUploadDir, getUploadsRoot, isServerlessUploads } = require('../utils/uploadPaths');
 
 const getWorkImagesFolder = (workId) => ensureUploadDir('works', String(workId), 'images');
 
@@ -47,7 +47,7 @@ const saveWorkImage = async (workId, file) => {
 };
 
 const saveUserAvatar = async (userId, file) => {
-    if (imgbbService.isConfigured()) {
+    if (imgbbService.isConfigured() && isServerlessUploads()) {
         return await imgbbService.uploadImageFile(file, `avatar-${userId}`);
     }
 
@@ -73,7 +73,8 @@ const saveUserAvatar = async (userId, file) => {
 };
 
 const saveEventCover = async (eventId, file) => {
-    if (imgbbService.isConfigured()) {
+    // Локально надійніше за i.ibb.co (часті ERR_HTTP2_PROTOCOL_ERROR у браузері)
+    if (imgbbService.isConfigured() && isServerlessUploads()) {
         return await imgbbService.uploadImageFile(file, `event-cover-${eventId}`);
     }
 

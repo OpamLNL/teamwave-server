@@ -47,6 +47,7 @@ router.get(
     asyncHandler(userController.getMyComments)
 );
 
+router.get('/:id/avatar-image', asyncHandler(userController.streamUserAvatar));
 router.get('/:id/events', asyncHandler(userController.getUserEvents));
 router.get('/:id/teams', asyncHandler(userController.getUserTeams));
 router.get('/:id/comments', asyncHandler(userController.getUserComments));

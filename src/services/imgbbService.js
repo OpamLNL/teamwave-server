@@ -48,7 +48,7 @@ async function uploadImage(buffer, name) {
     }
 
     return {
-        url: payload.data.display_url || payload.data.url,
+        url: payload.data.url || payload.data.image?.url || payload.data.display_url,
         deleteUrl: payload.data.delete_url || null,
     };
 }

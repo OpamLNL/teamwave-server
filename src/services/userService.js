@@ -5,6 +5,7 @@ const { USER_ROLES, createUserEntity } = require('../models/userModel');
 
 const fileUploadService = require('./fileUploadService');
 const imgbbService = require('./imgbbService');
+const { getUploadsRoot } = require('../utils/uploadPaths');
 
 const DEFAULT_AVATAR = '/images/users/default_avatar.png';
 
@@ -188,6 +189,42 @@ const uploadUserAvatar = async (userId, file, user) => {
     return await getUserById(userId);
 };
 
+const streamUserAvatar = async (userId, res) => {
+    const id = await resolveUserId(userId);
+    const user = await userRepository.getUserById(id);
+
+    if (!user?.avatar_url) {
+        throw new Error('Аватар не знайдено');
+    }
+
+    const avatarUrl = user.avatar_url;
+
+    if (imgbbService.isLocalUploadPath(avatarUrl)) {
+        const relative = String(avatarUrl).replace(/^\/uploads\/?/, '');
+        const localPath = path.join(getUploadsRoot(), relative);
+
+        if (!fs.existsSync(localPath)) {
+            throw new Error('Файл аватара не знайдено');
+        }
+
+        res.set('Cache-Control', 'public, max-age=86400');
+        return res.sendFile(localPath);
+    }
+
+    const response = await fetch(avatarUrl, {
+        headers: { 'User-Agent': 'TeamWave-Server/1.0' },
+    });
+
+    if (!response.ok) {
+        throw new Error('Не вдалося завантажити аватар');
+    }
+
+    const contentType = response.headers.get('content-type') || 'image/jpeg';
+    res.set('Content-Type', contentType);
+    res.set('Cache-Control', 'public, max-age=86400');
+    res.send(Buffer.from(await response.arrayBuffer()));
+};
+
 const updateUserRole = async (userId, role) => {
     const existing = await userRepository.getUserById(userId);
 
@@ -237,6 +274,7 @@ module.exports = {
     createUser,
     updateUser,
     uploadUserAvatar,
+    streamUserAvatar,
     updateUserRole,
     updateUserBlockedStatus,
     deleteUser

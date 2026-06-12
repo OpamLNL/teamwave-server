@@ -23,6 +23,7 @@ router.post('/', firebaseAuthMiddleware, isAuthenticated, asyncHandler(eventCont
 router.post('/from-template/:templateId', firebaseAuthMiddleware, isAuthenticated, asyncHandler(eventController.createEventFromTemplate));
 router.post('/join', firebaseAuthMiddleware, isAuthenticated, asyncHandler(eventController.joinByCode));
 
+router.get('/:id/cover-image', asyncHandler(eventController.streamEventCover));
 router.get('/:id/activities', asyncHandler(eventController.getEventActivities));
 router.get('/:id/participants', asyncHandler(eventController.getEventParticipants));
 router.get('/:id/team-leaderboard', asyncHandler(eventController.getEventTeamLeaderboard));
