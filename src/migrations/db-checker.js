@@ -61,6 +61,9 @@ async function checkAndInitDatabase() {
 
         const { ensureEventMediaSchema } = require('./add-event-media');
         await ensureEventMediaSchema();
+
+        const { ensureUserAvatarSchema } = require('./add-user-avatar-media');
+        await ensureUserAvatarSchema();
     } catch (err) {
         console.error('❌ DB CHECK ERROR:', err);
         throw err;
