@@ -4,6 +4,13 @@ const activityRepository = require('../repositories/activityRepository');
 const typingRaceRepository = require('../repositories/typingRaceRepository');
 const { canManageEvent } = require('./eventService');
 const { createActivityEntity } = require('../models/eventModel');
+const {
+    charsMatch,
+    getExpectedChar,
+    splitTextChars,
+    assertSingleChar,
+} = require('../utils/typingRaceChars');
+const { adaptTypingSettingsForTeam } = require('../utils/typingRaceTeamAdapt');
 
 const parseSettings = (row) => {
     const { normalizeTypingRaceSettings } = require('../utils/typingRaceSettings');
@@ -24,21 +31,29 @@ const getSegmentOwnerSlot = (segments, index) => {
     return segments.find((s) => s.slot != null)?.slot ?? 0;
 };
 
-const APOSTROPHE_CHARS = new Set(["'", '\u2019', '\u02BC', '`', '\u00B4']);
+const normalizePracticeMode = (mode) => (mode === 'team' ? 'team' : 'solo');
 
-const charsMatch = (expected, typed) => {
-    if (expected == null || typed == null) return false;
-    if (expected === typed) return true;
+const buildTeamMembersView = async (eventTeamId) => {
+    const members = await eventTeamRepository.getTeamMembers(eventTeamId);
+    return members.map((member) => ({
+        user_id: member.user_id,
+        name: member.user_name,
+        slot_index: Number(member.slot_index),
+        avatar_url: member.user_avatar ?? null,
+    }));
+};
 
-    const normExpected = String(expected).normalize('NFC');
-    const normTyped = String(typed).normalize('NFC');
-    if (normExpected === normTyped) return true;
+const resolveTeamTypingSettings = async (baseSettings, eventTeamId) => {
+    const members = await buildTeamMembersView(eventTeamId);
+    return adaptTypingSettingsForTeam(baseSettings, members);
+};
 
-    if (APOSTROPHE_CHARS.has(normExpected) && APOSTROPHE_CHARS.has(normTyped)) {
-        return true;
+const buildPracticeCanType = (practiceRun, practiceMode, mySlot, progress) => {
+    if (!practiceRun || practiceRun.finished_at) return false;
+    if (practiceMode === 'team') {
+        return Number(mySlot) === Number(progress?.active_slot);
     }
-
-    return false;
+    return true;
 };
 
 const buildProgressView = (settings, run) => {
@@ -49,8 +64,9 @@ const buildProgressView = (settings, run) => {
     const activeSlot = totalSegments > 0 ? getSegmentOwnerSlot(segments, currentIndex) : null;
     const currentSegment = segments[currentIndex] || null;
     const segmentText = currentSegment?.text || '';
-    const segmentProgress = segmentText
-        ? Math.min(100, Math.round((typedChars / segmentText.length) * 100))
+    const segmentChars = splitTextChars(segmentText);
+    const segmentProgress = segmentChars.length
+        ? Math.min(100, Math.round((typedChars / segmentChars.length) * 100))
         : 0;
 
     return {
@@ -74,7 +90,7 @@ const getTypingState = async (eventId, activityId, user) => {
     if (activityRow.type !== 'typing_race') throw new Error('Це не typing race');
 
     const activity = createActivityEntity(activityRow);
-    const settings = activity.settings;
+    const baseSettings = activity.settings;
     const runs = await typingRaceRepository.listRunsByActivity(activityId);
     const teams = await eventTeamRepository.listTeamsByEventId(eventId);
 
@@ -88,14 +104,20 @@ const getTypingState = async (eventId, activityId, user) => {
         }
     }
 
-    const runsView = runs.map((run) => ({
-        event_team_id: run.event_team_id,
-        team_name: run.team_name,
-        team_status: run.team_status,
-        ...buildProgressView(settings, run),
+    const runsView = await Promise.all(runs.map(async (run) => {
+        const adaptedSettings = await resolveTeamTypingSettings(baseSettings, run.event_team_id);
+        return {
+            event_team_id: run.event_team_id,
+            team_name: run.team_name,
+            team_status: run.team_status,
+            ...buildProgressView(adaptedSettings, run),
+        };
     }));
 
     const activeSlotGlobal = runsView.find((r) => !r.is_finished)?.active_slot ?? null;
+    const responseSettings = myTeam
+        ? await resolveTeamTypingSettings(baseSettings, myTeam)
+        : baseSettings;
 
     return {
         event: { id: event.id, status: event.status },
@@ -107,11 +129,12 @@ const getTypingState = async (eventId, activityId, user) => {
             ended_at: activity.ended_at,
         },
         settings: {
-            mode: settings.mode,
-            team_size: settings.team_size,
-            slots: settings.slots,
-            segments: settings.segments,
-            source_text: settings.source_text,
+            mode: responseSettings.mode,
+            team_size: responseSettings.team_size,
+            slots: responseSettings.slots,
+            segments: responseSettings.segments,
+            source_text: responseSettings.source_text,
+            occupied_slots: responseSettings.occupied_slots,
         },
         teams: teams.map((t) => ({
             id: t.id,
@@ -202,7 +225,7 @@ const startTypingRace = async (eventId, activityId, user) => {
 
 const typeCharacter = async (eventId, activityId, { event_team_id: eventTeamId, char }, user) => {
     if (!user) throw new Error('Не авторизований');
-    if (!char || char.length !== 1) throw new Error('Передайте один символ');
+    const typedChar = assertSingleChar(char);
 
     const event = await eventRepository.getEventById(eventId);
     if (!event) throw new Error('Захід не знайдено');
@@ -213,7 +236,7 @@ const typeCharacter = async (eventId, activityId, { event_team_id: eventTeamId, 
         throw new Error('Гра не активна');
     }
 
-    const settings = parseSettings(activityRow);
+    const settings = await resolveTeamTypingSettings(parseSettings(activityRow), eventTeamId);
     const segments = settings.segments || [];
     if (!segments.length) throw new Error('Немає тексту для набору');
 
@@ -237,17 +260,19 @@ const typeCharacter = async (eventId, activityId, { event_team_id: eventTeamId, 
     }
 
     const segmentText = segments[segmentIndex].text || '';
-    const expected = segmentText[run.segment_typed_chars];
-    if (!charsMatch(expected, char)) {
+    const expected = getExpectedChar(segmentText, run.segment_typed_chars);
+    if (expected == null) throw new Error('Невірний символ');
+    if (!charsMatch(expected, typedChar)) {
         throw new Error('Невірний символ');
     }
 
-    const nextTyped = run.segment_typed_chars + 1;
+    const segmentChars = splitTextChars(segmentText);
+    const nextTyped = Number(run.segment_typed_chars) + 1;
     let nextSegmentIndex = segmentIndex;
     let nextSegmentTyped = nextTyped;
     let finished = false;
 
-    if (nextTyped >= segmentText.length) {
+    if (nextTyped >= segmentChars.length) {
         nextSegmentIndex = segmentIndex + 1;
         nextSegmentTyped = 0;
     }
@@ -382,13 +407,17 @@ const getPracticeState = async (eventId, activityId, user) => {
     if (activityRow.type !== 'typing_race') throw new Error('Це не typing race');
 
     const activity = createActivityEntity(activityRow);
-    const settings = activity.settings;
+    const baseSettings = activity.settings;
 
     const membership = await eventTeamRepository.getUserTeamInEvent(eventId, user.id);
     if (!membership) throw new Error('Спочатку вступіть у команду');
 
+    const teamMembers = await buildTeamMembersView(membership.id);
+    const settings = adaptTypingSettingsForTeam(baseSettings, teamMembers);
     const practiceRun = await typingRaceRepository.getPracticeRun(activityId, membership.id);
+    const practiceMode = normalizePracticeMode(practiceRun?.practice_mode);
     const progress = practiceRun ? buildProgressView(settings, practiceRun) : null;
+    const mySlot = Number(membership.slot_index);
 
     return {
         event: { id: event.id, status: event.status },
@@ -399,16 +428,20 @@ const getPracticeState = async (eventId, activityId, user) => {
             slots: settings.slots,
             segments: settings.segments,
             source_text: settings.source_text,
+            occupied_slots: settings.occupied_slots,
         },
         my_team_id: membership.id,
-        my_slot: Number(membership.slot_index),
+        my_slot: mySlot,
+        practice_mode: practiceMode,
         practice_run: progress,
+        team_members: teamMembers,
         is_practice_active: Boolean(practiceRun && !practiceRun.finished_at),
-        can_type: Boolean(practiceRun && !practiceRun.finished_at),
+        can_type: buildPracticeCanType(practiceRun, practiceMode, mySlot, progress),
+        active_slot: progress?.active_slot ?? null,
     };
 };
 
-const startPracticeRun = async (eventId, activityId, user) => {
+const startPracticeRun = async (eventId, activityId, { mode = 'solo' } = {}, user) => {
     if (!user) throw new Error('Не авторизований');
 
     const event = await eventRepository.getEventById(eventId);
@@ -423,6 +456,14 @@ const startPracticeRun = async (eventId, activityId, user) => {
     const membership = await eventTeamRepository.getUserTeamInEvent(eventId, user.id);
     if (!membership) throw new Error('Спочатку вступіть у команду');
 
+    const practiceMode = normalizePracticeMode(mode);
+    if (practiceMode === 'team') {
+        const membersCount = await eventTeamRepository.countMembers(membership.id);
+        if (membersCount < 2) {
+            throw new Error('Для командного тренування потрібно щонайменше 2 гравці в команді');
+        }
+    }
+
     const competitiveRun = await typingRaceRepository.getRun(activityId, membership.id);
     if (competitiveRun && !competitiveRun.is_practice) {
         throw new Error('Офіційна гонка вже розпочата');
@@ -434,6 +475,7 @@ const startPracticeRun = async (eventId, activityId, user) => {
         event_team_id: membership.id,
         started_at: new Date(),
         is_practice: true,
+        practice_mode: practiceMode,
     });
 
     return getPracticeState(eventId, activityId, user);
@@ -441,7 +483,7 @@ const startPracticeRun = async (eventId, activityId, user) => {
 
 const typePracticeCharacter = async (eventId, activityId, { char }, user) => {
     if (!user) throw new Error('Не авторизований');
-    if (!char || char.length !== 1) throw new Error('Передайте один символ');
+    const typedChar = assertSingleChar(char);
 
     const event = await eventRepository.getEventById(eventId);
     if (!event) throw new Error('Захід не знайдено');
@@ -450,31 +492,44 @@ const typePracticeCharacter = async (eventId, activityId, { char }, user) => {
     const activityRow = await activityRepository.getActivityForEvent(eventId, activityId);
     if (!activityRow) throw new Error('Активність не знайдено');
 
-    const settings = parseSettings(activityRow);
-    const segments = settings.segments || [];
-    if (!segments.length) throw new Error('Немає тексту для набору');
-
     const membership = await eventTeamRepository.getUserTeamInEvent(eventId, user.id);
     if (!membership) throw new Error('Ви не в команді');
+
+    const settings = await resolveTeamTypingSettings(parseSettings(activityRow), membership.id);
+    const segments = settings.segments || [];
+    if (!segments.length) throw new Error('Немає тексту для набору');
 
     const run = await typingRaceRepository.getPracticeRun(activityId, membership.id);
     if (!run || run.finished_at) throw new Error('Спочатку почніть тренування');
 
+    const practiceMode = normalizePracticeMode(run.practice_mode);
+    const member = await eventTeamRepository.getMember(membership.id, user.id);
+    if (!member) throw new Error('Ви не в цій команді');
+
     const segmentIndex = run.current_segment_index;
     if (segmentIndex >= segments.length) throw new Error('Усі сегменти пройдено');
 
+    if (practiceMode === 'team') {
+        const activeSlot = getSegmentOwnerSlot(segments, segmentIndex);
+        if (Number(member.slot_index) !== Number(activeSlot)) {
+            throw new Error('Зараз не ваш хід');
+        }
+    }
+
     const segmentText = segments[segmentIndex].text || '';
-    const expected = segmentText[run.segment_typed_chars];
-    if (!charsMatch(expected, char)) {
+    const expected = getExpectedChar(segmentText, run.segment_typed_chars);
+    if (expected == null) throw new Error('Невірний символ');
+    if (!charsMatch(expected, typedChar)) {
         throw new Error('Невірний символ');
     }
 
-    const nextTyped = run.segment_typed_chars + 1;
+    const segmentChars = splitTextChars(segmentText);
+    const nextTyped = Number(run.segment_typed_chars) + 1;
     let nextSegmentIndex = segmentIndex;
     let nextSegmentTyped = nextTyped;
     let finished = false;
 
-    if (nextTyped >= segmentText.length) {
+    if (nextTyped >= segmentChars.length) {
         nextSegmentIndex = segmentIndex + 1;
         nextSegmentTyped = 0;
     }

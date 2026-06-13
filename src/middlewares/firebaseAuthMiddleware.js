@@ -1,5 +1,6 @@
 const admin = require('../../firebase-admin');
 const userRepository = require('../repositories/userRepository');
+const { isDatabaseConnectionError } = require('../config/database');
 
 const firebaseAuthMiddleware = async (req, res, next) => {
     try {
@@ -33,6 +34,14 @@ const firebaseAuthMiddleware = async (req, res, next) => {
     } catch (error) {
         const isExpired = error?.code === 'auth/id-token-expired'
             || error?.errorInfo?.code === 'auth/id-token-expired';
+
+        if (isDatabaseConnectionError(error)) {
+            console.error('Firebase auth DB error:', error.code || error.message);
+            return res.status(503).json({
+                error: error.message || 'База даних тимчасово недоступна. Спробуйте через кілька секунд.',
+                code: 'DB_UNAVAILABLE',
+            });
+        }
 
         if (!isExpired) {
             console.error('Firebase auth error:', error);

@@ -30,6 +30,11 @@ async function ensureTeamJoinRequestsSchema() {
     `);
 
     await ensureColumn('typing_race_runs', 'is_practice', 'BOOLEAN NOT NULL DEFAULT FALSE AFTER completion_time_ms');
+    await ensureColumn(
+        'typing_race_runs',
+        'practice_mode',
+        "ENUM('solo', 'team') NOT NULL DEFAULT 'solo' AFTER is_practice"
+    );
     await backfillTypingRaceActivitySettings();
 }
 

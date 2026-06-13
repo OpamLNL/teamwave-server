@@ -32,11 +32,17 @@ const getPracticeRun = async (activityId, eventTeamId) => {
     return rows[0] || null;
 };
 
-const createRun = async ({ activity_id, event_team_id, started_at = null, is_practice = false }) => {
+const createRun = async ({
+    activity_id,
+    event_team_id,
+    started_at = null,
+    is_practice = false,
+    practice_mode = 'solo',
+}) => {
     const result = await query(`
-        INSERT INTO typing_race_runs (activity_id, event_team_id, started_at, is_practice)
-        VALUES (?, ?, ?, ?)
-    `, [activity_id, event_team_id, started_at, is_practice ? 1 : 0]);
+        INSERT INTO typing_race_runs (activity_id, event_team_id, started_at, is_practice, practice_mode)
+        VALUES (?, ?, ?, ?, ?)
+    `, [activity_id, event_team_id, started_at, is_practice ? 1 : 0, practice_mode]);
     return getRunById(result.insertId);
 };
 

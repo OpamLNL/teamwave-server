@@ -80,6 +80,7 @@ const startPracticeRun = async (req, res) => {
         const state = await typingRaceService.startPracticeRun(
             req.params.id,
             req.params.activityId,
+            req.body,
             req.user
         );
         res.json(state);
