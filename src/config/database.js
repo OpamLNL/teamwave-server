@@ -105,15 +105,42 @@ if (sslConfig) {
     poolConfig.ssl = sslConfig;
 }
 
-const pool = mysql.createPool(poolConfig);
+let pool = null;
+let poolClosed = false;
+
+function createPoolInstance() {
+    pool = mysql.createPool(poolConfig);
+    poolClosed = false;
+    return pool;
+}
+
+function getPool() {
+    if (!pool || poolClosed) {
+        createPoolInstance();
+    }
+    return pool;
+}
 
 async function query(sql, params) {
-    const [results] = await pool.query(sql, params);
-    return results;
+    try {
+        const [results] = await getPool().query(sql, params);
+        return results;
+    } catch (err) {
+        if (err?.message === 'Pool is closed.') {
+            createPoolInstance();
+            const [results] = await getPool().query(sql, params);
+            return results;
+        }
+        throw err;
+    }
 }
 
 async function closePool() {
-    await pool.end();
+    if (!pool || poolClosed) return;
+    poolClosed = true;
+    const activePool = pool;
+    pool = null;
+    await activePool.end();
 }
 
 module.exports = {
