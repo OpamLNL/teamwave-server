@@ -64,6 +64,9 @@ async function checkAndInitDatabase() {
 
         const { ensureUserAvatarSchema } = require('./add-user-avatar-media');
         await ensureUserAvatarSchema();
+
+        const { ensureTeamJoinRequestsSchema } = require('./add-team-join-requests');
+        await ensureTeamJoinRequestsSchema();
     } catch (err) {
         console.error('❌ DB CHECK ERROR:', err);
         throw err;

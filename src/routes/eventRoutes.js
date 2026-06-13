@@ -27,16 +27,22 @@ router.get('/:id/cover-image', asyncHandler(eventController.streamEventCover));
 router.get('/:id/activities', asyncHandler(eventController.getEventActivities));
 router.get('/:id/participants', asyncHandler(eventController.getEventParticipants));
 router.get('/:id/team-leaderboard', asyncHandler(eventController.getEventTeamLeaderboard));
-router.get('/:id/teams', asyncHandler(eventTeamController.getEventTeams));
+router.get('/:id/teams', optionalAuth, asyncHandler(eventTeamController.getEventTeams));
 
 router.get('/:id/activities/:activityId/typing-state', optionalAuth, asyncHandler(typingRaceController.getTypingState));
+router.get('/:id/activities/:activityId/practice-state', firebaseAuthMiddleware, isAuthenticated, asyncHandler(typingRaceController.getPracticeState));
 
 router.post('/:id/join', firebaseAuthMiddleware, isAuthenticated, asyncHandler(eventController.joinEvent));
 router.post('/:id/leave', firebaseAuthMiddleware, isAuthenticated, asyncHandler(eventController.leaveEvent));
 router.post('/:id/teams', firebaseAuthMiddleware, isAuthenticated, asyncHandler(eventTeamController.createEventTeam));
 router.post('/:id/teams/:teamId/join', firebaseAuthMiddleware, isAuthenticated, asyncHandler(eventTeamController.joinEventTeam));
+router.post('/:id/teams/:teamId/requests/:requestId/accept', firebaseAuthMiddleware, isAuthenticated, asyncHandler(eventTeamController.acceptJoinRequest));
+router.post('/:id/teams/:teamId/requests/:requestId/decline', firebaseAuthMiddleware, isAuthenticated, asyncHandler(eventTeamController.declineJoinRequest));
 router.post('/:id/teams/:teamId/ready', firebaseAuthMiddleware, isAuthenticated, asyncHandler(eventTeamController.markTeamReady));
 router.post('/:id/activities/:activityId/start', firebaseAuthMiddleware, isAuthenticated, asyncHandler(typingRaceController.startTypingRace));
+router.post('/:id/activities/:activityId/practice/start', firebaseAuthMiddleware, isAuthenticated, asyncHandler(typingRaceController.startPracticeRun));
+router.post('/:id/activities/:activityId/practice/type', firebaseAuthMiddleware, isAuthenticated, asyncHandler(typingRaceController.typePracticeCharacter));
+router.post('/:id/activities/:activityId/practice/reset', firebaseAuthMiddleware, isAuthenticated, asyncHandler(typingRaceController.resetPracticeRun));
 router.post('/:id/activities/:activityId/type', firebaseAuthMiddleware, isAuthenticated, asyncHandler(typingRaceController.typeCharacter));
 router.post('/:id/activities/:activityId/finish', firebaseAuthMiddleware, isAuthenticated, asyncHandler(typingRaceController.finishTypingRace));
 

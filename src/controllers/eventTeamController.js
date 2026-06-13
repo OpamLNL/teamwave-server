@@ -11,8 +11,8 @@ const handleError = (res, err) => {
 
 const getEventTeams = async (req, res) => {
     try {
-        const teams = await eventTeamService.getEventTeams(req.params.id);
-        res.json(teams);
+        const data = await eventTeamService.getEventTeams(req.params.id, req.user || null);
+        res.json(data);
     } catch (err) {
         handleError(res, err);
     }
@@ -29,13 +29,54 @@ const createEventTeam = async (req, res) => {
 
 const joinEventTeam = async (req, res) => {
     try {
-        const team = await eventTeamService.joinEventTeam(
+        const team = await eventTeamService.requestJoinEventTeam(
             req.params.id,
             req.params.teamId,
             req.body,
             req.user
         );
         res.json(team);
+    } catch (err) {
+        handleError(res, err);
+    }
+};
+
+const acceptJoinRequest = async (req, res) => {
+    try {
+        const team = await eventTeamService.acceptJoinRequest(
+            req.params.id,
+            req.params.teamId,
+            req.params.requestId,
+            req.user
+        );
+        res.json(team);
+    } catch (err) {
+        handleError(res, err);
+    }
+};
+
+const declineJoinRequest = async (req, res) => {
+    try {
+        const team = await eventTeamService.declineJoinRequest(
+            req.params.id,
+            req.params.teamId,
+            req.params.requestId,
+            req.user
+        );
+        res.json(team);
+    } catch (err) {
+        handleError(res, err);
+    }
+};
+
+const cancelJoinRequest = async (req, res) => {
+    try {
+        const result = await eventTeamService.cancelJoinRequest(
+            req.params.id,
+            req.params.teamId,
+            req.user
+        );
+        res.json(result);
     } catch (err) {
         handleError(res, err);
     }
@@ -71,6 +112,9 @@ module.exports = {
     getEventTeams,
     createEventTeam,
     joinEventTeam,
+    acceptJoinRequest,
+    declineJoinRequest,
+    cancelJoinRequest,
     leaveEventTeam,
     markTeamReady,
 };

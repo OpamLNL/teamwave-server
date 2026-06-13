@@ -5,6 +5,7 @@ const EVENT_TYPES = [
 ];
 
 const { resolveIcon } = require('../utils/eventIcons');
+const { normalizeTypingRaceSettings } = require('../utils/typingRaceSettings');
 
 const createEventEntity = (row) => ({
     id: row.id,
@@ -31,17 +32,24 @@ const createEventEntity = (row) => ({
     activities_count: row.activities_count != null ? Number(row.activities_count) : 0,
 });
 
-const createActivityEntity = (row) => ({
-    id: row.id,
-    event_id: row.event_id,
-    title: row.title,
-    type: row.type,
-    settings: typeof row.settings === 'string' ? JSON.parse(row.settings) : row.settings,
-    order_index: row.order_index,
-    is_active: Boolean(row.is_active),
-    started_at: row.started_at,
-    ended_at: row.ended_at,
-});
+const createActivityEntity = (row) => {
+    const rawSettings = typeof row.settings === 'string' ? JSON.parse(row.settings) : row.settings;
+    const settings = row.type === 'typing_race'
+        ? normalizeTypingRaceSettings(rawSettings)
+        : rawSettings;
+
+    return {
+        id: row.id,
+        event_id: row.event_id,
+        title: row.title,
+        type: row.type,
+        settings,
+        order_index: row.order_index,
+        is_active: Boolean(row.is_active),
+        started_at: row.started_at,
+        ended_at: row.ended_at,
+    };
+};
 
 const createTemplateEntity = (row) => ({
     id: row.id,

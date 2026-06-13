@@ -1,8 +1,9 @@
 const eventRepository = require('../repositories/eventRepository');
 const eventTeamRepository = require('../repositories/eventTeamRepository');
+const joinRequestRepository = require('../repositories/eventTeamJoinRequestRepository');
 const { canManageEvent } = require('./eventService');
 
-const mapTeam = (team, members = []) => ({
+const mapTeam = (team, members = [], pendingRequests = []) => ({
     id: team.id,
     event_id: team.event_id,
     name: team.name,
@@ -21,9 +22,31 @@ const mapTeam = (team, members = []) => ({
         user_avatar: m.user_avatar,
         joined_at: m.joined_at,
     })),
+    pending_requests: pendingRequests,
 });
 
-const getEventTeams = async (eventId) => {
+const { normalizeTypingRaceSettings } = require('../utils/typingRaceSettings');
+
+const getTeamSize = async (eventId) => {
+    const activities = await eventRepository.getActivitiesByEventId(eventId);
+    const typingActivity = activities.find((a) => a.type === 'typing_race');
+    const settings = typingActivity?.settings
+        ? normalizeTypingRaceSettings(
+            typeof typingActivity.settings === 'string'
+                ? JSON.parse(typingActivity.settings)
+                : typingActivity.settings
+        )
+        : null;
+    return settings?.team_size ?? 4;
+};
+
+const assertRegistrationOpen = (event) => {
+    if (['active', 'finished'].includes(event.status)) {
+        throw new Error('Реєстрація команд закрита');
+    }
+};
+
+const getEventTeams = async (eventId, user = null) => {
     const event = await eventRepository.getEventById(eventId);
     if (!event) throw new Error('Захід не знайдено');
 
@@ -31,22 +54,35 @@ const getEventTeams = async (eventId) => {
     const result = [];
     for (const team of teams) {
         const members = await eventTeamRepository.getTeamMembers(team.id);
-        result.push(mapTeam(team, members));
+        const pendingRequests = await joinRequestRepository.listPendingByTeam(team.id);
+        result.push(mapTeam(team, members, pendingRequests));
     }
-    return result;
+
+    let myPendingRequest = null;
+    if (user) {
+        myPendingRequest = await joinRequestRepository.getPendingByUserForEvent(eventId, user.id);
+    }
+
+    return {
+        teams: result,
+        my_pending_request: myPendingRequest,
+    };
 };
 
 const createEventTeam = async (eventId, { name }, user) => {
     if (!user) throw new Error('Не авторизований');
     const event = await eventRepository.getEventById(eventId);
     if (!event) throw new Error('Захід не знайдено');
-    if (['finished'].includes(event.status)) throw new Error('Захід уже завершено');
+    if (event.status === 'finished') throw new Error('Захід уже завершено');
 
     const participant = await eventRepository.getParticipant(eventId, user.id);
     if (!participant) throw new Error('Спочатку приєднайтесь до заходу');
 
     const existingTeam = await eventTeamRepository.getUserTeamInEvent(eventId, user.id);
     if (existingTeam) throw new Error('Ви вже в команді цього заходу');
+
+    const pending = await joinRequestRepository.getPendingByUserForEvent(eventId, user.id);
+    if (pending) throw new Error('Спочатку скасуйте запит на вступ до іншої команди');
 
     const trimmed = name?.trim();
     if (!trimmed) throw new Error('Назва команди обовʼязкова');
@@ -57,17 +93,21 @@ const createEventTeam = async (eventId, { name }, user) => {
         captain_user_id: user.id,
     });
 
+    await eventTeamRepository.addMember({
+        event_team_id: team.id,
+        user_id: user.id,
+        slot_index: 0,
+    });
+
     const members = await eventTeamRepository.getTeamMembers(team.id);
-    return mapTeam({ ...team, members_count: 0 }, members);
+    return mapTeam({ ...team, members_count: members.length }, members, []);
 };
 
-const joinEventTeam = async (eventId, teamId, { slot_index: slotIndex }, user) => {
+const requestJoinEventTeam = async (eventId, teamId, { slot_index: slotIndex }, user) => {
     if (!user) throw new Error('Не авторизований');
     const event = await eventRepository.getEventById(eventId);
     if (!event) throw new Error('Захід не знайдено');
-    if (['active', 'finished'].includes(event.status)) {
-        throw new Error('Реєстрація команд закрита');
-    }
+    assertRegistrationOpen(event);
 
     const participant = await eventRepository.getParticipant(eventId, user.id);
     if (!participant) throw new Error('Спочатку приєднайтесь до заходу');
@@ -76,51 +116,124 @@ const joinEventTeam = async (eventId, teamId, { slot_index: slotIndex }, user) =
     if (!team) throw new Error('Команду не знайдено');
     if (team.status !== 'open') throw new Error('Команду вже зареєстровано');
 
-    const activities = await eventRepository.getActivitiesByEventId(eventId);
-    const typingActivity = activities.find((a) => a.type === 'typing_race');
-    const settings = typingActivity?.settings
-        ? (typeof typingActivity.settings === 'string'
-            ? JSON.parse(typingActivity.settings)
-            : typingActivity.settings)
-        : null;
-    const teamSize = settings?.team_size ?? 4;
-
+    const teamSize = await getTeamSize(eventId);
     const slot = Number(slotIndex);
     if (!Number.isInteger(slot) || slot < 0 || slot >= teamSize) {
         throw new Error('Некоректний слот');
     }
 
     const existingTeam = await eventTeamRepository.getUserTeamInEvent(eventId, user.id);
-    if (existingTeam && Number(existingTeam.id) !== Number(teamId)) {
-        throw new Error('Ви вже в іншій команді');
-    }
-
-    const existingMember = await eventTeamRepository.getMember(teamId, user.id);
-    if (existingMember) {
-        if (Number(existingMember.slot_index) === slot) {
-            const members = await eventTeamRepository.getTeamMembers(teamId);
-            return mapTeam(team, members);
-        }
-        await eventTeamRepository.removeMember(teamId, user.id);
-    }
+    if (existingTeam) throw new Error('Ви вже в команді цього заходу');
 
     const slotTaken = await eventTeamRepository.getMemberBySlot(teamId, slot);
-    if (slotTaken && Number(slotTaken.user_id) !== Number(user.id)) {
-        throw new Error('Цей слот уже зайнятий');
+    if (slotTaken) throw new Error('Цей слот уже зайнятий');
+
+    const slotPending = await joinRequestRepository.getPendingByTeamAndSlot(teamId, slot);
+    if (slotPending && Number(slotPending.user_id) !== Number(user.id)) {
+        throw new Error('На цей слот уже є запит');
     }
 
-    await eventTeamRepository.addMember({
+    const myPending = await joinRequestRepository.getPendingByUserForEvent(eventId, user.id);
+    if (myPending) {
+        if (Number(myPending.event_team_id) === Number(teamId) && Number(myPending.slot_index) === slot) {
+            return mapTeam(
+                team,
+                await eventTeamRepository.getTeamMembers(teamId),
+                await joinRequestRepository.listPendingByTeam(teamId)
+            );
+        }
+        await joinRequestRepository.cancelPendingForUserInEvent(eventId, user.id);
+    }
+
+    await joinRequestRepository.createRequest({
         event_team_id: teamId,
         user_id: user.id,
         slot_index: slot,
     });
 
-    if (!team.captain_user_id) {
-        await eventTeamRepository.updateTeam(teamId, { captain_user_id: user.id });
+    const members = await eventTeamRepository.getTeamMembers(teamId);
+    const pendingRequests = await joinRequestRepository.listPendingByTeam(teamId);
+    return mapTeam(await eventTeamRepository.getTeamById(teamId), members, pendingRequests);
+};
+
+const acceptJoinRequest = async (eventId, teamId, requestId, user) => {
+    if (!user) throw new Error('Не авторизований');
+    const event = await eventRepository.getEventById(eventId);
+    if (!event) throw new Error('Захід не знайдено');
+    assertRegistrationOpen(event);
+
+    const team = await eventTeamRepository.getTeamForEvent(eventId, teamId);
+    if (!team) throw new Error('Команду не знайдено');
+    if (team.status !== 'open') throw new Error('Команду вже зареєстровано');
+
+    const isCaptain = Number(team.captain_user_id) === Number(user.id);
+    if (!isCaptain && !canManageEvent(user, event)) {
+        throw new Error('Лише капітан може приймати запити');
     }
 
+    const request = await joinRequestRepository.getRequestForTeam(teamId, requestId);
+    if (!request || request.status !== 'pending') {
+        throw new Error('Запит не знайдено');
+    }
+
+    const existingTeam = await eventTeamRepository.getUserTeamInEvent(eventId, request.user_id);
+    if (existingTeam) {
+        await joinRequestRepository.updateRequestStatus(requestId, 'declined');
+        throw new Error('Користувач уже в іншій команді');
+    }
+
+    const slotTaken = await eventTeamRepository.getMemberBySlot(teamId, request.slot_index);
+    if (slotTaken) {
+        await joinRequestRepository.updateRequestStatus(requestId, 'declined');
+        throw new Error('Слот уже зайнятий');
+    }
+
+    await eventTeamRepository.addMember({
+        event_team_id: teamId,
+        user_id: request.user_id,
+        slot_index: request.slot_index,
+    });
+
+    await joinRequestRepository.updateRequestStatus(requestId, 'accepted');
+    await joinRequestRepository.cancelPendingForUserInEvent(eventId, request.user_id, teamId);
+
     const members = await eventTeamRepository.getTeamMembers(teamId);
-    return mapTeam(await eventTeamRepository.getTeamById(teamId), members);
+    const pendingRequests = await joinRequestRepository.listPendingByTeam(teamId);
+    return mapTeam(await eventTeamRepository.getTeamById(teamId), members, pendingRequests);
+};
+
+const declineJoinRequest = async (eventId, teamId, requestId, user) => {
+    if (!user) throw new Error('Не авторизований');
+    const event = await eventRepository.getEventById(eventId);
+    if (!event) throw new Error('Захід не знайдено');
+
+    const team = await eventTeamRepository.getTeamForEvent(eventId, teamId);
+    if (!team) throw new Error('Команду не знайдено');
+
+    const isCaptain = Number(team.captain_user_id) === Number(user.id);
+    if (!isCaptain && !canManageEvent(user, event)) {
+        throw new Error('Лише капітан може відхиляти запити');
+    }
+
+    const request = await joinRequestRepository.getRequestForTeam(teamId, requestId);
+    if (!request || request.status !== 'pending') {
+        throw new Error('Запит не знайдено');
+    }
+
+    await joinRequestRepository.updateRequestStatus(requestId, 'declined');
+
+    const members = await eventTeamRepository.getTeamMembers(teamId);
+    const pendingRequests = await joinRequestRepository.listPendingByTeam(teamId);
+    return mapTeam(await eventTeamRepository.getTeamById(teamId), members, pendingRequests);
+};
+
+const cancelJoinRequest = async (eventId, teamId, user) => {
+    if (!user) throw new Error('Не авторизований');
+    const team = await eventTeamRepository.getTeamForEvent(eventId, teamId);
+    if (!team) throw new Error('Команду не знайдено');
+
+    await joinRequestRepository.cancelPendingForUserInTeam(teamId, user.id);
+    return { ok: true };
 };
 
 const leaveEventTeam = async (eventId, teamId, user) => {
@@ -135,9 +248,13 @@ const leaveEventTeam = async (eventId, teamId, user) => {
     if (!team) throw new Error('Команду не знайдено');
 
     const member = await eventTeamRepository.getMember(teamId, user.id);
-    if (!member) throw new Error('Ви не в цій команді');
+    if (!member) {
+        await joinRequestRepository.cancelPendingForUserInTeam(teamId, user.id);
+        return { ok: true };
+    }
 
     await eventTeamRepository.removeMember(teamId, user.id);
+    await joinRequestRepository.cancelPendingForUserInTeam(teamId, user.id);
 
     const members = await eventTeamRepository.getTeamMembers(teamId);
     if (members.length === 0) {
@@ -163,19 +280,17 @@ const markTeamReady = async (eventId, teamId, user) => {
     const team = await eventTeamRepository.getTeamForEvent(eventId, teamId);
     if (!team) throw new Error('Команду не знайдено');
 
+    const pendingCount = (await joinRequestRepository.listPendingByTeam(teamId)).length;
+    if (pendingCount > 0) {
+        throw new Error('Спочатку опрацюйте запити на вступ');
+    }
+
     const isCaptain = Number(team.captain_user_id) === Number(user.id);
     if (!isCaptain && !canManageEvent(user, event)) {
         throw new Error('Лише капітан може підтвердити готовність');
     }
 
-    const activities = await eventRepository.getActivitiesByEventId(eventId);
-    const typingActivity = activities.find((a) => a.type === 'typing_race');
-    const settings = typingActivity?.settings
-        ? (typeof typingActivity.settings === 'string'
-            ? JSON.parse(typingActivity.settings)
-            : typingActivity.settings)
-        : null;
-    const teamSize = settings?.team_size ?? 4;
+    const teamSize = await getTeamSize(eventId);
     const membersCount = await eventTeamRepository.countMembers(teamId);
 
     if (membersCount < teamSize) {
@@ -184,13 +299,16 @@ const markTeamReady = async (eventId, teamId, user) => {
 
     await eventTeamRepository.updateTeam(teamId, { status: 'ready' });
     const members = await eventTeamRepository.getTeamMembers(teamId);
-    return mapTeam(await eventTeamRepository.getTeamById(teamId), members);
+    return mapTeam(await eventTeamRepository.getTeamById(teamId), members, []);
 };
 
 module.exports = {
     getEventTeams,
     createEventTeam,
-    joinEventTeam,
+    requestJoinEventTeam,
+    acceptJoinRequest,
+    declineJoinRequest,
+    cancelJoinRequest,
     leaveEventTeam,
     markTeamReady,
 };
